@@ -6,21 +6,6 @@ def buildVersions = [:]
     buildVersions.minSdk = 27
 ext.buildVersions = buildVersions
 
-def getVersionName() {
-    return 'git describe --tags'.execute().text.trim()
-}
-ext.getVersionName = getVersionName()
-
-def getVersionCode() {
-    return 'git show -s --format=%ct'.execute().text.trim()
-}
-ext.getVersionCode = getVersionCode()
-
-task printVersion() {
-    println("Version Name: $getVersionName")
-    println("Version Code: $getVersionCode")
-}
-
 def versions = [:]
     versions.support = "27.1.1"
     versions.tests = "1.0.2"
@@ -41,7 +26,7 @@ deps.unitest = unitest
 
 deps.kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-def addRepos(RepositoryHandler handler) {
+def static addRepos(RepositoryHandler handler) {
     handler.google()
     handler.jcenter()
 }

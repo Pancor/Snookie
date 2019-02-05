@@ -1,0 +1,14 @@
+def static getVersionName() {
+    return 'git describe --tags'.execute().text.trim()
+}
+ext.getVersionName = getVersionName()
+
+def static getVersionCode() {
+    return 'git show -s --format=%ct'.execute().text.trim()
+}
+ext.getVersionCode = getVersionCode()
+
+task printVersion() {
+    println("Version Name: $getVersionName")
+    println("Version Code: $getVersionCode")
+}

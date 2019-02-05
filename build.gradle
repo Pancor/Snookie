@@ -1,5 +1,6 @@
 buildscript {
     apply from: 'dependencies.gradle'
+    apply from: 'version.gradle'
     addRepos(repositories)
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.0'
