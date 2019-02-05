@@ -1,6 +1,5 @@
 buildscript {
     apply from: 'dependencies.gradle'
-    ext.kotlin_version = '1.3.11'
     addRepos(repositories)
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.0'
