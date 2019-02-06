@@ -26,8 +26,8 @@ dependencies {
     implementation deps.kotlin
 
     implementation deps.support.app_combat
+    implementation deps.support.constraint
 
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation deps.unitest.junit
     androidTestImplementation deps.support.tests.runner
     androidTestImplementation deps.support.tests.espresso
