@@ -1,7 +1,7 @@
 package pancordev.pl.snookie.base
 
-import android.support.v7.app.AppCompatActivity
+import dagger.android.support.DaggerAppCompatActivity
 
 
-abstract class BaseActivity: AppCompatActivity(){
+abstract class BaseActivity: DaggerAppCompatActivity() {
 }
