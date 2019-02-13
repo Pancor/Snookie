@@ -25,10 +25,19 @@ android {
 dependencies {
     implementation deps.kotlin
 
+    //support
     implementation deps.support.app_combat
     implementation deps.support.constraint
 
+    //unit tests
     testImplementation deps.unitest.junit
     androidTestImplementation deps.support.tests.runner
     androidTestImplementation deps.support.tests.espresso
+
+    //dagger
+    implementation deps.dagger.dagger
+    kapt deps.dagger.annProc
+    implementation deps.dagger.androidDagger
+    implementation deps.dagger.supportAndroidDagger
+    kapt deps.dagger.androidAnnProc
 }
