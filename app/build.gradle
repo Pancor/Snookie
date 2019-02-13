@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion buildVersions.targetSdk
@@ -37,7 +36,6 @@ dependencies {
     //dagger
     implementation deps.dagger.dagger
     kapt deps.dagger.annProc
-    implementation deps.dagger.androidDagger
     implementation deps.dagger.supportAndroidDagger
     kapt deps.dagger.androidAnnProc
 }

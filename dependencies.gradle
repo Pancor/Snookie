@@ -30,7 +30,6 @@ deps.unitest = unitest
 def dagger = [:]
     dagger.dagger = "com.google.dagger:dagger:$versions.dagger"
     dagger.annProc = "com.google.dagger:dagger-compiler:$versions.dagger"
-    dagger.androidDagger = "com.google.dagger:dagger-android:$versions.dagger"
     dagger.supportAndroidDagger = "com.google.dagger:dagger-android-support:$versions.dagger"
     dagger.androidAnnProc = "com.google.dagger:dagger-android-processor:$versions.dagger"
 deps.dagger = dagger
