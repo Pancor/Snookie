@@ -14,7 +14,7 @@ class LoginActivity: BaseActivity(), LoginContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.act_login)
-        
+
     }
 
     override fun signedIn() {

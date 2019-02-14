@@ -1,13 +1,28 @@
 package pancordev.pl.snookie.form.login
 
-import android.util.Log
 import pancordev.pl.snookie.di.ActivityScoped
 import javax.inject.Inject
 
 @ActivityScoped
 class LoginPresenter @Inject constructor(): LoginContract.Presenter{
 
-    override fun signIn() {
+    override fun signInByGoogle() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun signInAsAnonymous() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun singUp() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun signInByFacebook() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun signIn(email: String, password: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

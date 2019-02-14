@@ -13,6 +13,14 @@ interface LoginContract {
 
     interface Presenter: BasePresenter<View> {
 
-        fun signIn()
+        fun signIn(email: String, password: String)
+
+        fun signInByFacebook()
+
+        fun signInByGoogle()
+
+        fun signInAsAnonymous()
+
+        fun singUp()
     }
 }
