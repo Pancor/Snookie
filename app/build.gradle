@@ -40,6 +40,8 @@ dependencies {
     kapt deps.dagger.androidAnnProc
 
     //firebase
+    implementation deps.firebase.core
+    implementation deps.firebase.auth
 }
 
 apply plugin: 'com.google.gms.google-services'
