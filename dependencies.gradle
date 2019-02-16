@@ -13,6 +13,7 @@ def versions = [:]
     versions.junit = "4.12"
     versions.constraint = "1.1.3"
     versions.dagger = "2.21"
+    versions.firebase = "16.0.7"
 
 def support = [:]
     support.app_combat = "com.android.support:appcompat-v7:$versions.support"
@@ -33,6 +34,10 @@ def dagger = [:]
     dagger.supportAndroidDagger = "com.google.dagger:dagger-android-support:$versions.dagger"
     dagger.androidAnnProc = "com.google.dagger:dagger-android-processor:$versions.dagger"
 deps.dagger = dagger
+
+def firebase = [:]
+    firebase = "com.google.firebase:firebase-core:$versions.firebase"
+deps.firebase = firebase
 
 deps.kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 

@@ -38,4 +38,8 @@ dependencies {
     kapt deps.dagger.annProc
     implementation deps.dagger.supportAndroidDagger
     kapt deps.dagger.androidAnnProc
+
+    //firebase
 }
+
+apply plugin: 'com.google.gms.google-services'
