@@ -9,6 +9,14 @@ interface LoginContract {
     interface View: BaseView<Presenter> {
 
         fun signedIn()
+
+        fun wrongCredidentials()
+
+        fun noInternetConncection()
+
+        fun serverNotResponding()
+
+        fun unknownError()
     }
 
     interface Presenter: BasePresenter<View> {

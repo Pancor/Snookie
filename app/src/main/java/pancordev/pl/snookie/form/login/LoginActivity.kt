@@ -20,4 +20,20 @@ class LoginActivity: BaseActivity(), LoginContract.View {
     override fun signedIn() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override fun wrongCredidentials() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun noInternetConncection() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun serverNotResponding() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun unknownError() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
