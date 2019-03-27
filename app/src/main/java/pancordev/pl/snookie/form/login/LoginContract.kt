@@ -10,9 +10,9 @@ interface LoginContract {
 
         fun signedIn()
 
-        fun wrongCredidentials()
+        fun wrongCredentials()
 
-        fun noInternetConncection()
+        fun noInternetConnection()
 
         fun serverNotResponding()
 

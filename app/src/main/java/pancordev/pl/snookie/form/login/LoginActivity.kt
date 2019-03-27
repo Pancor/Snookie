@@ -21,11 +21,11 @@ class LoginActivity: BaseActivity(), LoginContract.View {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun wrongCredidentials() {
+    override fun wrongCredentials() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun noInternetConncection() {
+    override fun noInternetConnection() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
