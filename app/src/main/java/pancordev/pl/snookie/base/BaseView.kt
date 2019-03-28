@@ -1,5 +1,5 @@
 package pancordev.pl.snookie.base
 
 
-interface BaseView<T> {
+interface BaseView {
 }

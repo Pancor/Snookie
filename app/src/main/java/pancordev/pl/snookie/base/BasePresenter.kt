@@ -1,9 +1,17 @@
 package pancordev.pl.snookie.base
 
+import io.reactivex.disposables.CompositeDisposable
 
-interface BasePresenter<T> {
+open class BasePresenter<T: BaseView> : BasePresenterContract<T>{
 
-    fun onStart(view: T)
+    protected val disposable = CompositeDisposable()
+    protected lateinit var view: T
 
-    fun onStop()
+    override fun onStart(view: T) {
+        this.view = view
+    }
+
+    override fun onStop() {
+        disposable.dispose()
+    }
 }
