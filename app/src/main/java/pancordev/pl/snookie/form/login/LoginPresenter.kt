@@ -1,12 +1,11 @@
 package pancordev.pl.snookie.form.login
 
 import pancordev.pl.snookie.di.ActivityScoped
-import pancordev.pl.snookie.utils.auth.AuthManager
 import pancordev.pl.snookie.utils.auth.AuthManagerContract
 import javax.inject.Inject
 
 @ActivityScoped
-class LoginPresenter @Inject constructor(val authManager: AuthManagerContract.AuthMaanger)
+class LoginPresenter @Inject constructor(val authManager: AuthManagerContract.AuthManager)
     : LoginContract.Presenter {
 
     override fun signInByGoogle() {

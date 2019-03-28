@@ -1,23 +1,26 @@
 package pancordev.pl.snookie.utils.auth
 
+import io.reactivex.Single
+import pancordev.pl.snookie.model.Result
+
 
 interface AuthManagerContract {
 
-    interface AuthMaanger {
+    interface AuthManager {
 
-        fun signInByFacebook()
+        fun signInByFacebook(): Single<Result>
 
-        fun signUpByFacebook()
+        fun signUpByFacebook(): Single<Result>
 
-        fun signInBySnookie()
+        fun signInBySnookie(): Single<Result>
 
-        fun signUpBySnookie()
+        fun signUpBySnookie(): Single<Result>
     }
 
     interface Provider {
 
-        fun signIn()
+        fun signIn(): Single<Result>
 
-        fun signUp()
+        fun signUp(): Single<Result>
     }
 }

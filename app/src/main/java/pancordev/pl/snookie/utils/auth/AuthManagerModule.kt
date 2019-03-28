@@ -13,7 +13,7 @@ abstract class AuthManagerModule {
 
     @Singleton
     @Binds
-    abstract fun provideAuthManager(authManager: AuthManager): AuthManagerContract.AuthMaanger
+    abstract fun provideAuthManager(authManager: AuthManager): AuthManagerContract.AuthManager
 
     @Singleton
     @Binds
