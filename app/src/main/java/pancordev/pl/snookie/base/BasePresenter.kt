@@ -7,7 +7,7 @@ open class BasePresenter<T: BaseView> : BasePresenterContract<T>{
     protected val disposable = CompositeDisposable()
     protected lateinit var view: T
 
-    override fun onStart(view: T) {
+    override fun onSetView(view: T) {
         this.view = view
     }
 
