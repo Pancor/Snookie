@@ -1,9 +1,11 @@
 package pancordev.pl.snookie.utils.auth.providers
 
 import pancordev.pl.snookie.utils.auth.AuthManagerContract
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-class FacebookAuthProvider() : AuthManagerContract.Provider {
+@Singleton
+class FacebookAuthProvider @Inject constructor() : AuthManagerContract.Provider {
 
     override fun signIn() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

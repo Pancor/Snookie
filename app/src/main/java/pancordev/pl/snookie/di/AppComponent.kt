@@ -8,10 +8,12 @@ import dagger.android.support.AndroidSupportInjectionModule
 import pancordev.pl.snookie.SnookieApp
 import pancordev.pl.snookie.utils.auth.AuthManager
 import pancordev.pl.snookie.utils.auth.AuthManagerContract
+import pancordev.pl.snookie.utils.auth.AuthManagerModule
 import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [AppModule::class,
+    AuthManagerModule::class,
     ActivityBindingModule::class,
     AndroidSupportInjectionModule::class])
 interface AppComponent: AndroidInjector<SnookieApp> {

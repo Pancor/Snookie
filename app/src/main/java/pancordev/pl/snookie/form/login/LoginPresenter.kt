@@ -6,7 +6,8 @@ import pancordev.pl.snookie.utils.auth.AuthManagerContract
 import javax.inject.Inject
 
 @ActivityScoped
-class LoginPresenter @Inject constructor(authManager: AuthManager): LoginContract.Presenter{
+class LoginPresenter @Inject constructor(val authManager: AuthManagerContract.AuthMaanger)
+    : LoginContract.Presenter {
 
     override fun signInByGoogle() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
