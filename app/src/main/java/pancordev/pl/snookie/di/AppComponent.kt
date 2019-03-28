@@ -6,6 +6,8 @@ import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import pancordev.pl.snookie.SnookieApp
+import pancordev.pl.snookie.utils.auth.AuthManager
+import pancordev.pl.snookie.utils.auth.AuthManagerContract
 import javax.inject.Singleton
 
 @Singleton
@@ -13,6 +15,8 @@ import javax.inject.Singleton
     ActivityBindingModule::class,
     AndroidSupportInjectionModule::class])
 interface AppComponent: AndroidInjector<SnookieApp> {
+
+    fun getAuthManager(): AuthManager
 
     @Component.Builder
     interface Builder {

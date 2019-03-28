@@ -1,10 +1,12 @@
 package pancordev.pl.snookie.form.login
 
 import pancordev.pl.snookie.di.ActivityScoped
+import pancordev.pl.snookie.utils.auth.AuthManager
+import pancordev.pl.snookie.utils.auth.AuthManagerContract
 import javax.inject.Inject
 
 @ActivityScoped
-class LoginPresenter @Inject constructor(): LoginContract.Presenter{
+class LoginPresenter @Inject constructor(authManager: AuthManager): LoginContract.Presenter{
 
     override fun signInByGoogle() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
