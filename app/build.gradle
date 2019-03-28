@@ -43,6 +43,11 @@ dependencies {
     //firebase
     implementation deps.firebase.core
     implementation deps.firebase.auth
+
+    //rx
+    implementation deps.rx.java
+    implementation deps.rx.kotlin
+    implementation deps.rx.android
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -18,6 +18,9 @@ def versions = [:]
         fire.core = "16.0.7"
         fire.auth = "16.1.0"
     versions.firebase = fire
+    versions.rxJava = "2.2.8"
+    versions.rxKotlin = "2.3.0"
+    versions.rxAndroid = "2.1.1"
 
 def support = [:]
     support.app_combat = "com.android.support:appcompat-v7:$versions.support"
@@ -32,6 +35,12 @@ def unitest = [:]
     unitest.junit = "junit:junit:$versions.junit"
     unitest.mockito = "org.mockito:mockito-core:$versions.mockito"
 deps.unitest = unitest
+
+def rx = [:]
+    rx.java = "io.reactivex.rxjava2:rxjava:$versions.rxJava"
+    rx.kotlin = "io.reactivex.rxjava2:rxkotlin:$versions.rxKotlin"
+    rx.android = "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid"
+deps.rx = rx
 
 def dagger = [:]
     dagger.dagger = "com.google.dagger:dagger:$versions.dagger"
