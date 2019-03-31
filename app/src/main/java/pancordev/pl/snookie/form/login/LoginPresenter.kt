@@ -26,14 +26,6 @@ class LoginPresenter @Inject constructor(val authManager: AuthManagerContract.Au
     }
 
     override fun signIn(email: String, password: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onSetView(view: LoginContract.View) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onStop() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        view.signedIn()
     }
 }

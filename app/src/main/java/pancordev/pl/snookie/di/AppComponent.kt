@@ -9,10 +9,11 @@ import pancordev.pl.snookie.SnookieApp
 import pancordev.pl.snookie.utils.auth.AuthManager
 import pancordev.pl.snookie.utils.auth.AuthManagerContract
 import pancordev.pl.snookie.utils.auth.AuthManagerModule
+import pancordev.pl.snookie.utils.schedulers.SchedulerModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AppModule::class,
+@Component(modules = [AppModule::class, SchedulerModule::class,
     AuthManagerModule::class,
     ActivityBindingModule::class,
     AndroidSupportInjectionModule::class])
