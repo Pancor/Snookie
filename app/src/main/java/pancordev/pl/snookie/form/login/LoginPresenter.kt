@@ -7,8 +7,8 @@ import pancordev.pl.snookie.utils.schedulers.BaseSchedulerProvider
 import javax.inject.Inject
 
 @ActivityScoped
-class LoginPresenter @Inject constructor(val authManager: AuthManagerContract.AuthManager,
-                                         val scheduler: BaseSchedulerProvider)
+class LoginPresenter @Inject constructor(private val authManager: AuthManagerContract.AuthManager,
+                                         private val scheduler: BaseSchedulerProvider)
     : BasePresenter<LoginContract.View>(), LoginContract.Presenter {
 
     override fun signInByGoogle() {
@@ -28,6 +28,13 @@ class LoginPresenter @Inject constructor(val authManager: AuthManagerContract.Au
     }
 
     override fun signIn(email: String, password: String) {
-        view.signedIn()
+        disposable.add(authManager.signInBySnookie()
+            .observeOn(scheduler.ui())
+            .subscribeOn(scheduler.io())
+            .subscribe { result ->
+                if (result.isSucceed) {
+                    view.signedIn()
+                }
+            })
     }
 }
