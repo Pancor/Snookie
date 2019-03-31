@@ -2,12 +2,12 @@ package pancordev.pl.snookie.form.login
 
 import pancordev.pl.snookie.base.BasePresenter
 import pancordev.pl.snookie.di.ActivityScoped
-import pancordev.pl.snookie.utils.auth.AuthManagerContract
+import pancordev.pl.snookie.utils.auth.AuthContract
 import pancordev.pl.snookie.utils.schedulers.BaseSchedulerProvider
 import javax.inject.Inject
 
 @ActivityScoped
-class LoginPresenter @Inject constructor(private val authManager: AuthManagerContract.AuthManager,
+class LoginPresenter @Inject constructor(private val authManager: AuthContract.AuthManager,
                                          private val scheduler: BaseSchedulerProvider)
     : BasePresenter<LoginContract.View>(), LoginContract.Presenter {
 
@@ -28,7 +28,7 @@ class LoginPresenter @Inject constructor(private val authManager: AuthManagerCon
     }
 
     override fun signIn(email: String, password: String) {
-        disposable.add(authManager.signInBySnookie()
+        disposable.add(authManager.signInBySnookie(email, password)
             .observeOn(scheduler.ui())
             .subscribeOn(scheduler.io())
             .subscribe { result ->

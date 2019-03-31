@@ -7,7 +7,6 @@ import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import pancordev.pl.snookie.SnookieApp
 import pancordev.pl.snookie.utils.auth.AuthManager
-import pancordev.pl.snookie.utils.auth.AuthManagerContract
 import pancordev.pl.snookie.utils.auth.AuthManagerModule
 import pancordev.pl.snookie.utils.schedulers.SchedulerModule
 import javax.inject.Singleton

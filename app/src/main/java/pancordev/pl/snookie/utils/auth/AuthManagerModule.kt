@@ -3,9 +3,7 @@ package pancordev.pl.snookie.utils.auth
 import dagger.Binds
 import dagger.Module
 import pancordev.pl.snookie.utils.auth.providers.FacebookAuthProvider
-import pancordev.pl.snookie.utils.auth.providers.FacebookQualifier
 import pancordev.pl.snookie.utils.auth.providers.SnookieAuthProvider
-import pancordev.pl.snookie.utils.auth.providers.SnookieQualifier
 import javax.inject.Singleton
 
 @Module
@@ -13,15 +11,13 @@ abstract class AuthManagerModule {
 
     @Singleton
     @Binds
-    abstract fun provideAuthManager(authManager: AuthManager): AuthManagerContract.AuthManager
+    abstract fun provideAuthManager(authManager: AuthManager): AuthContract.AuthManager
 
     @Singleton
     @Binds
-    @FacebookQualifier
-    abstract fun provideFacebookAuthProvider(fbProvider: FacebookAuthProvider) : AuthManagerContract.Provider
+    abstract fun provideFacebookAuthProvider(fbProvider: FacebookAuthProvider) : AuthContract.Facebook
 
     @Singleton
     @Binds
-    @SnookieQualifier
-    abstract fun provideSnookieAuthProvider(snookieProvider: SnookieAuthProvider) : AuthManagerContract.Provider
+    abstract fun provideSnookieAuthProvider(snookieProvider: SnookieAuthProvider) : AuthContract.Snookie
 }

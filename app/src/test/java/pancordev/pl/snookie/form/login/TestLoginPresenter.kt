@@ -41,11 +41,11 @@ class TestLoginPresenter {
         val response = Single.create<Result> {
             it.onSuccess(Result(isSucceed = true, code = AuthManager.SIGN_IN_SUCCEED))
         }
-        `when`(authManager.signInBySnookie()).thenReturn(response)
+        `when`(authManager.signInBySnookie(EMAIL, PASSWD)).thenReturn(response)
 
         loginPresenter.signIn(EMAIL, PASSWD)
 
-        verify(authManager).signInBySnookie()
+        verify(authManager).signInBySnookie(EMAIL, PASSWD)
         verify(view).signedIn()
     }
 }

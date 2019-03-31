@@ -4,7 +4,7 @@ import io.reactivex.Single
 import pancordev.pl.snookie.model.Result
 
 
-interface AuthManagerContract {
+interface AuthContract {
 
     interface AuthManager {
 
@@ -12,14 +12,21 @@ interface AuthManagerContract {
 
         fun signUpByFacebook(): Single<Result>
 
-        fun signInBySnookie(): Single<Result>
+        fun signInBySnookie(email: String, password: String): Single<Result>
 
         fun signUpBySnookie(): Single<Result>
     }
 
-    interface Provider {
+    interface Facebook {
 
         fun signIn(): Single<Result>
+
+        fun signUp(): Single<Result>
+    }
+
+    interface Snookie {
+
+        fun signIn(email: String, password: String): Single<Result>
 
         fun signUp(): Single<Result>
     }
