@@ -21,6 +21,8 @@ interface LoginContract {
 
     interface Presenter: BasePresenterContract<View> {
 
+        fun checkIfUserIsSignedIn()
+
         fun signIn(email: String, password: String)
 
         fun signInByFacebook()

@@ -4,8 +4,7 @@ import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 import pancordev.pl.snookie.model.Result
 import pancordev.pl.snookie.utils.auth.AuthManager
@@ -37,7 +36,7 @@ class TestLoginPresenter {
     }
 
     @Test
-    fun signInByFormWithSuccessThenCheckIfSucceeded(){
+    fun signInByFormWithSuccessThenCheckIfSucceeded() {
         val response = Single.create<Result> {
             it.onSuccess(Result(isSucceed = true, code = AuthManager.SIGN_IN_SUCCEED))
         }
@@ -47,5 +46,31 @@ class TestLoginPresenter {
 
         verify(authManager).signInBySnookie(EMAIL, PASSWD)
         verify(view).signedIn()
+    }
+
+    @Test
+    fun checkThatUserIsSignedInThenUpdateUI() {
+        val response = Single.create<Result> {
+            it.onSuccess(Result(isSucceed = true, code = AuthManager.SIGN_IN_SUCCEED))
+        }
+        `when`(authManager.checkIfUserIsSignedIn()).thenReturn(response)
+
+        loginPresenter.checkIfUserIsSignedIn()
+
+        verify(authManager).checkIfUserIsSignedIn()
+        verify(view).signedIn()
+    }
+
+    @Test
+    fun checkThatUserIsNotSignedInThenDoNotUpdateUI() {
+        val response = Single.create<Result> {
+            it.onSuccess(Result(isSucceed = false, code = AuthManager.NOT_SIGNED_IN))
+        }
+        `when`(authManager.checkIfUserIsSignedIn()).thenReturn(response)
+
+        loginPresenter.checkIfUserIsSignedIn()
+
+        verify(authManager).checkIfUserIsSignedIn()
+        verify(view, never()).signedIn()
     }
 }

@@ -11,6 +11,17 @@ class LoginPresenter @Inject constructor(private val authManager: AuthContract.A
                                          private val scheduler: BaseSchedulerProvider)
     : BasePresenter<LoginContract.View>(), LoginContract.Presenter {
 
+    override fun checkIfUserIsSignedIn() {
+        disposable.add(authManager.checkIfUserIsSignedIn()
+            .subscribeOn(scheduler.io())
+            .observeOn(scheduler.ui())
+            .subscribe { result ->
+                if (result.isSucceed) {
+                    view.signedIn()
+                }
+            })
+    }
+
     override fun signInByGoogle() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

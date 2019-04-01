@@ -8,6 +8,8 @@ interface AuthContract {
 
     interface AuthManager {
 
+        fun checkIfUserIsSignedIn(): Single<Result>
+
         fun signInByFacebook(): Single<Result>
 
         fun signUpByFacebook(): Single<Result>

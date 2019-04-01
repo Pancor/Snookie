@@ -1,23 +1,32 @@
 package pancordev.pl.snookie.utils.auth
 
+import com.google.firebase.auth.FirebaseAuth
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import pancordev.pl.snookie.utils.auth.providers.FacebookAuthProvider
 import pancordev.pl.snookie.utils.auth.providers.SnookieAuthProvider
 import javax.inject.Singleton
 
-@Module
-abstract class AuthManagerModule {
+@Module(includes = [AuthManagerModule.Providers::class])
+class AuthManagerModule {
 
     @Singleton
-    @Binds
-    abstract fun provideAuthManager(authManager: AuthManager): AuthContract.AuthManager
+    @Provides
+    fun provideAuthFirebase() = FirebaseAuth.getInstance()
 
-    @Singleton
-    @Binds
-    abstract fun provideFacebookAuthProvider(fbProvider: FacebookAuthProvider) : AuthContract.Facebook
+    @Module
+    interface Providers {
+        @Singleton
+        @Binds
+        fun provideAuthManager(authManager: AuthManager): AuthContract.AuthManager
 
-    @Singleton
-    @Binds
-    abstract fun provideSnookieAuthProvider(snookieProvider: SnookieAuthProvider) : AuthContract.Snookie
+        @Singleton
+        @Binds
+        fun provideFacebookAuthProvider(fbProvider: FacebookAuthProvider) : AuthContract.Facebook
+
+        @Singleton
+        @Binds
+        fun provideSnookieAuthProvider(snookieProvider: SnookieAuthProvider) : AuthContract.Snookie
+    }
 }
