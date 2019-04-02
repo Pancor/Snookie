@@ -73,4 +73,60 @@ class TestLoginPresenter {
         verify(authManager).checkIfUserIsSignedIn()
         verify(view, never()).signedIn()
     }
+
+    @Test
+    fun signInBySnookieWithWrongEmailThenUpdateUI() {
+        val response = Single.create<Result> {
+            it.onSuccess(Result(isSucceed = false, code = AuthManager.INVALID_USER_EMAIL))
+        }
+        `when`(authManager.signInBySnookie(EMAIL, PASSWD)).thenReturn(response)
+
+        loginPresenter.signIn(EMAIL, PASSWD)
+
+        verify(authManager).signInBySnookie(EMAIL, PASSWD)
+        verify(view, never()).signedIn()
+        verify(view).wrongCredentials()
+    }
+
+    @Test
+    fun signInBySnookieWithWrongPasswordThenUpdateUI() {
+        val response = Single.create<Result> {
+            it.onSuccess(Result(isSucceed = false, code = AuthManager.INVALID_PASSWD))
+        }
+        `when`(authManager.signInBySnookie(EMAIL, PASSWD)).thenReturn(response)
+
+        loginPresenter.signIn(EMAIL, PASSWD)
+
+        verify(authManager).signInBySnookie(EMAIL, PASSWD)
+        verify(view, never()).signedIn()
+        verify(view).wrongCredentials()
+    }
+
+    @Test
+    fun signInBySnookieWithUnknownErrorThenUpdateUI() {
+        val response = Single.create<Result> {
+            it.onSuccess(Result(isSucceed = false, code = AuthManager.UNKNOWN_ERROR))
+        }
+        `when`(authManager.signInBySnookie(EMAIL, PASSWD)).thenReturn(response)
+
+        loginPresenter.signIn(EMAIL, PASSWD)
+
+        verify(authManager).signInBySnookie(EMAIL, PASSWD)
+        verify(view, never()).signedIn()
+        verify(view).unknownError()
+    }
+
+    @Test
+    fun signInBySnookieWithReallyUnknownErrorThenUpdateUI() {
+        val response = Single.create<Result> {
+            it.onSuccess(Result(isSucceed = false, code = "random characters to simulate unknown result code"))
+        }
+        `when`(authManager.signInBySnookie(EMAIL, PASSWD)).thenReturn(response)
+
+        loginPresenter.signIn(EMAIL, PASSWD)
+
+        verify(authManager).signInBySnookie(EMAIL, PASSWD)
+        verify(view, never()).signedIn()
+        verify(view).unknownError()
+    }
 }

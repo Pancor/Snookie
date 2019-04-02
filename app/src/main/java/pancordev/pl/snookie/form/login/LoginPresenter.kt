@@ -2,7 +2,9 @@ package pancordev.pl.snookie.form.login
 
 import pancordev.pl.snookie.base.BasePresenter
 import pancordev.pl.snookie.di.ActivityScoped
+import pancordev.pl.snookie.model.Result
 import pancordev.pl.snookie.utils.auth.AuthContract
+import pancordev.pl.snookie.utils.auth.AuthManager
 import pancordev.pl.snookie.utils.schedulers.BaseSchedulerProvider
 import javax.inject.Inject
 
@@ -45,7 +47,17 @@ class LoginPresenter @Inject constructor(private val authManager: AuthContract.A
             .subscribe { result ->
                 if (result.isSucceed) {
                     view.signedIn()
+                } else {
+                    handleSignInError(result)
                 }
             })
+    }
+
+    private fun handleSignInError(result: Result) {
+        when (result.code) {
+            AuthManager.INVALID_PASSWD -> { view.wrongCredentials() }
+            AuthManager.INVALID_USER_EMAIL -> { view.wrongCredentials() }
+            else -> { view.unknownError() }
+        }
     }
 }

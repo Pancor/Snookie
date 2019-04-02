@@ -21,9 +21,10 @@ class AuthManager @Inject constructor(private val fbProvider: AuthContract.Faceb
 
     override fun checkIfUserIsSignedIn(): Single<Result> {
         return Single.create{ emitter ->
-            var result = Result(isSucceed = false, code = NOT_SIGNED_IN)
-            if (auth.currentUser != null) {
-                result = Result(isSucceed = true, code = SIGN_IN_SUCCEED)
+            val result = if (auth.currentUser != null) {
+                Result(isSucceed = true, code = SIGN_IN_SUCCEED)
+            } else {
+                Result(isSucceed = false, code = NOT_SIGNED_IN)
             }
             emitter.onSuccess(result)
         }
