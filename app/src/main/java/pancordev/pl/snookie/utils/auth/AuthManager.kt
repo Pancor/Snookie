@@ -14,6 +14,9 @@ class AuthManager @Inject constructor(private val fbProvider: AuthContract.Faceb
     companion object {
         const val SIGN_IN_SUCCEED = "SIGN_IN_SUCCEED"
         const val NOT_SIGNED_IN = "NOT_SIGNED_IN"
+        const val UNKNOWN_ERROR = "UNKNOWN_ERROR"
+        const val INVALID_USER_EMAIL = "INVALID_USER_EMAIL"
+        const val INVALID_PASSWD = "INVALID_PASSWD"
     }
 
     override fun checkIfUserIsSignedIn(): Single<Result> {
