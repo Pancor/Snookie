@@ -9,6 +9,7 @@ import io.reactivex.rxkotlin.zipWith
 import pancordev.pl.snookie.model.Result
 import pancordev.pl.snookie.utils.auth.AuthContract
 import pancordev.pl.snookie.utils.auth.AuthManager
+import pancordev.pl.snookie.utils.auth.tools.CredentialsValidator
 import pancordev.pl.snookie.utils.auth.tools.CredentialsValidatorContract
 import java.lang.Exception
 import javax.inject.Inject
@@ -21,14 +22,21 @@ class SnookieAuthProvider @Inject constructor(private val auth: FirebaseAuth,
 
     override fun signIn(email: String, password: String): Single<Result> {
         return credentialsValidator.validateEmail(email)
-            .zipWith(credentialsValidator.validateEmail(email))
-            .zipWith(signInWithFirebase(email, password), BiFunction { validation, signInResult ->
-                if (validation.first.isSucceed && validation.second.isSucceed) {
-                    signInResult
+            .zipWith(credentialsValidator.validateEmail(email), BiFunction<Result, Result, Result> {
+                    emailValidation, passwordValidation ->
+                if (emailValidation.isSucceed && passwordValidation.isSucceed) {
+                    Result(isSucceed = true, code = CredentialsValidator.OK)
                 } else {
-                    if (validation.first.isSucceed) { validation.second } else { validation.first }
+                    if (emailValidation.isSucceed) { passwordValidation } else { emailValidation }
                 }
             })
+            .flatMap { result ->
+                if (result.isSucceed) {
+                    signInWithFirebase(email, password)
+                } else {
+                    Single.just(result)
+                }
+            }
     }
 
     private fun signInWithFirebase(email: String, password: String): Single<Result> {

@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import io.reactivex.Single
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers
 import org.mockito.Mock
@@ -42,65 +43,87 @@ class TestSnookieAuthProvider {
         snookieAuth = SnookieAuthProvider(auth, credentialsValidator)
     }
 
-    @Test
-    fun signInWithSuccessThenCheckIfSucceeded() {
-        `when`(credentialsValidator.validateEmail(EMAIL)).thenReturn(EMAIL_OK)
-        `when`(credentialsValidator.validatePassword(PASSWD)).thenReturn(PASSWD_OK)
-        `when`(auth.signInWithEmailAndPassword(EMAIL, PASSWD)).thenReturn(authResult)
-        `when`(authResult.isSuccessful).thenReturn(true)
-        callOnCompleteOfAuthResult()
-        val expectedResult = Result(isSucceed = true, code = AuthManager.SIGN_IN_SUCCEED)
+    @Nested
+    inner class WhenEmailAndPasswordValidationIsOK {
 
-        snookieAuth.signIn(EMAIL, PASSWD)
-            .test()
-            .assertValue(expectedResult)
+        @Test
+        fun `sign in with success then check ifs succeeded`() {
+            `when`(credentialsValidator.validateEmail(EMAIL)).thenReturn(EMAIL_OK)
+            `when`(credentialsValidator.validatePassword(PASSWD)).thenReturn(PASSWD_OK)
+            `when`(auth.signInWithEmailAndPassword(EMAIL, PASSWD)).thenReturn(authResult)
+            `when`(authResult.isSuccessful).thenReturn(true)
+            callOnCompleteOfAuthResult()
+            val expectedResult = Result(isSucceed = true, code = AuthManager.SIGN_IN_SUCCEED)
+
+            snookieAuth.signIn(EMAIL, PASSWD)
+                .test()
+                .assertValue(expectedResult)
+        }
+
+        @Test
+        fun `sign in with unknown error then check if sign in failed`() {
+            `when`(credentialsValidator.validateEmail(EMAIL)).thenReturn(EMAIL_OK)
+            `when`(credentialsValidator.validatePassword(PASSWD)).thenReturn(PASSWD_OK)
+            `when`(auth.signInWithEmailAndPassword(EMAIL, PASSWD)).thenReturn(authResult)
+            `when`(authResult.isSuccessful).thenReturn(false)
+            `when`(authResult.exception).thenReturn(Exception())
+            callOnCompleteOfAuthResult()
+            val expectedResult = Result(isSucceed = false, code = AuthManager.UNKNOWN_ERROR)
+
+            snookieAuth.signIn(EMAIL, PASSWD)
+                .test()
+                .assertValue(expectedResult)
+        }
+
+        @Test
+        fun `sign in with unregistered email then check if sign in failed`() {
+            `when`(credentialsValidator.validateEmail(EMAIL)).thenReturn(EMAIL_OK)
+            `when`(credentialsValidator.validatePassword(PASSWD)).thenReturn(PASSWD_OK)
+            `when`(auth.signInWithEmailAndPassword(EMAIL, PASSWD)).thenReturn(authResult)
+            `when`(authResult.isSuccessful).thenReturn(false)
+            val exception = mock(FirebaseAuthInvalidUserException::class.java)
+            `when`(authResult.exception).thenReturn(exception)
+            callOnCompleteOfAuthResult()
+            val expectedResult = Result(isSucceed = false, code = AuthManager.INVALID_USER_EMAIL)
+
+            snookieAuth.signIn(EMAIL, PASSWD)
+                .test()
+                .assertValue(expectedResult)
+        }
+
+        @Test
+        fun `sign in with wrong password then check if sign in failed`() {
+            `when`(credentialsValidator.validateEmail(EMAIL)).thenReturn(EMAIL_OK)
+            `when`(credentialsValidator.validatePassword(PASSWD)).thenReturn(PASSWD_OK)
+            `when`(auth.signInWithEmailAndPassword(EMAIL, PASSWD)).thenReturn(authResult)
+            `when`(authResult.isSuccessful).thenReturn(false)
+            val exception = mock(FirebaseAuthInvalidCredentialsException::class.java)
+            `when`(authResult.exception).thenReturn(exception)
+            callOnCompleteOfAuthResult()
+            val expectedResult = Result(isSucceed = false, code = AuthManager.INVALID_PASSWD)
+
+            snookieAuth.signIn(EMAIL, PASSWD)
+                .test()
+                .assertValue(expectedResult)
+        }
     }
 
-    @Test
-    fun signInWithUnknownErrorThenCheckIfSignInFailed() {
-        `when`(credentialsValidator.validateEmail(EMAIL)).thenReturn(EMAIL_OK)
-        `when`(credentialsValidator.validatePassword(PASSWD)).thenReturn(PASSWD_OK)
-        `when`(auth.signInWithEmailAndPassword(EMAIL, PASSWD)).thenReturn(authResult)
-        `when`(authResult.isSuccessful).thenReturn(false)
-        `when`(authResult.exception).thenReturn(Exception())
-        callOnCompleteOfAuthResult()
-        val expectedResult = Result(isSucceed = false, code = AuthManager.UNKNOWN_ERROR)
+    @Nested
+    inner class WhenEmailOrPasswordValidationIsWrong {
 
-        snookieAuth.signIn(EMAIL, PASSWD)
-            .test()
-            .assertValue(expectedResult)
-    }
+        private val EMAIL_WRONG = Single.just(Result(isSucceed = false, code = CredentialsValidator.WRONG_EMAIL))
+        private val PASSWD_WRONG = Single.just(Result(isSucceed = true, code = CredentialsValidator.OK))
 
-    @Test
-    fun signInWithWrongEmailThenCheckIfSignInFailed() {
-        `when`(credentialsValidator.validateEmail(EMAIL)).thenReturn(EMAIL_OK)
-        `when`(credentialsValidator.validatePassword(PASSWD)).thenReturn(PASSWD_OK)
-        `when`(auth.signInWithEmailAndPassword(EMAIL, PASSWD)).thenReturn(authResult)
-        `when`(authResult.isSuccessful).thenReturn(false)
-        val exception = mock(FirebaseAuthInvalidUserException::class.java)
-        `when`(authResult.exception).thenReturn(exception)
-        callOnCompleteOfAuthResult()
-        val expectedResult = Result(isSucceed = false, code = AuthManager.INVALID_USER_EMAIL)
+        @Test
+        fun `sign in with wrong email then return error`() {
+            `when`(credentialsValidator.validateEmail(EMAIL)).thenReturn(EMAIL_WRONG)
+            `when`(credentialsValidator.validatePassword(PASSWD)).thenReturn(PASSWD_OK)
+            val expectedResult = Result(isSucceed = false, code = CredentialsValidator.WRONG_EMAIL)
 
-        snookieAuth.signIn(EMAIL, PASSWD)
-            .test()
-            .assertValue(expectedResult)
-    }
-
-    @Test
-    fun signInWithWrongPasswordThenCheckIfSignInFailed() {
-        `when`(credentialsValidator.validateEmail(EMAIL)).thenReturn(EMAIL_OK)
-        `when`(credentialsValidator.validatePassword(PASSWD)).thenReturn(PASSWD_OK)
-        `when`(auth.signInWithEmailAndPassword(EMAIL, PASSWD)).thenReturn(authResult)
-        `when`(authResult.isSuccessful).thenReturn(false)
-        val exception = mock(FirebaseAuthInvalidCredentialsException::class.java)
-        `when`(authResult.exception).thenReturn(exception)
-        callOnCompleteOfAuthResult()
-        val expectedResult = Result(isSucceed = false, code = AuthManager.INVALID_PASSWD)
-
-        snookieAuth.signIn(EMAIL, PASSWD)
-            .test()
-            .assertValue(expectedResult)
+            snookieAuth.signIn(EMAIL, PASSWD)
+                .test()
+                .assertValue(expectedResult)
+        }
     }
 
     @Suppress("UNCHECKED_CAST")
