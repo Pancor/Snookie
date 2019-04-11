@@ -33,6 +33,8 @@ dependencies {
     testImplementation deps.unitest.junitApi
     testRuntimeOnly deps.unitest.junitEngine
     testImplementation deps.unitest.junitParams
+    testImplementation deps.unitest.junit4
+    testRuntimeOnly deps.unitest.junit4Engine
 
     //unit tests
     testImplementation deps.unitest.mockito
