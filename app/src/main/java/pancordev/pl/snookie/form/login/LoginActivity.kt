@@ -26,7 +26,7 @@ class LoginActivity: BaseActivity(), LoginContract.View {
     }
 
     override fun wrongCredentials() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(this, "wrong credits", Toast.LENGTH_LONG).show()
     }
 
     override fun noInternetConnection() {
@@ -38,6 +38,6 @@ class LoginActivity: BaseActivity(), LoginContract.View {
     }
 
     override fun unknownError() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(this, "unknown error", Toast.LENGTH_LONG).show()
     }
 }
