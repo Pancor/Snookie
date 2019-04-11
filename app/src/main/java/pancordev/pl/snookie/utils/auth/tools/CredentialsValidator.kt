@@ -12,6 +12,7 @@ class CredentialsValidator @Inject constructor() : CredentialsValidatorContract 
     companion object {
         const val OK = "OK"
         const val WRONG_EMAIL = "WRONG_EMAIL"
+        const val WRONG_PASSWORD = "WRONG_PASSWORD"
     }
 
     override fun validateEmail(email: String): Single<Result> {
@@ -31,8 +32,11 @@ class CredentialsValidator @Inject constructor() : CredentialsValidatorContract 
 
     override fun validatePassword(password: String): Single<Result> {
         return Single.create { emitter ->
-
-            emitter.onSuccess(Result(isSucceed = true, code = "OK"))
+            val validEmailAddressRegex = Pattern.compile("((?=.*[a-z])(?=.*\\d)(?=.*[A-Z]).{6,})")
+            val matcher = validEmailAddressRegex.matcher(password)
+            val isPasswordValid = matcher.find()
+            val code = if (isPasswordValid) { OK } else { WRONG_PASSWORD }
+            emitter.onSuccess(Result(isSucceed = isPasswordValid, code = code))
         }
     }
 }
