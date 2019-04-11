@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: "de.mannodermaus.android-junit5"
 
 android {
     compileSdkVersion buildVersions.targetSdk
@@ -28,8 +29,12 @@ dependencies {
     implementation deps.support.app_combat
     implementation deps.support.constraint
 
+    //junit
+    testImplementation deps.unitest.junitApi
+    testRuntimeOnly deps.unitest.junitEngine
+    testImplementation deps.unitest.junitParams
+
     //unit tests
-    testImplementation deps.unitest.junit
     testImplementation deps.unitest.mockito
     androidTestImplementation deps.support.tests.runner
     androidTestImplementation deps.support.tests.espresso
