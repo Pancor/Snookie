@@ -7,10 +7,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import io.reactivex.Single
-import org.junit.Before
-import org.junit.Test
-import org.junit.experimental.runners.Enclosed
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito.*
@@ -38,7 +36,7 @@ class TestSnookieAuthProvider {
     private val EMAIL_OK = Single.just(Result(isSucceed = true, code = CredentialsValidator.OK))
     private val PASSWD_OK = Single.just(Result(isSucceed = true, code = CredentialsValidator.OK))
 
-    @Before
+    @BeforeEach
     fun setup() {
         MockitoAnnotations.initMocks(this)
         snookieAuth = SnookieAuthProvider(auth, credentialsValidator)
