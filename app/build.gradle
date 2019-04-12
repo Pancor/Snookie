@@ -55,6 +55,9 @@ dependencies {
     implementation deps.rx.java
     implementation deps.rx.kotlin
     implementation deps.rx.android
+
+    //facebook
+    implementation deps.facebook.core
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -22,6 +22,7 @@ def versions = [:]
     versions.rxJava = "2.2.8"
     versions.rxKotlin = "2.3.0"
     versions.rxAndroid = "2.1.1"
+    versions.fb = "[4,5)"
 
 def support = [:]
     support.app_combat = "com.android.support:appcompat-v7:$versions.support"
@@ -53,6 +54,10 @@ def dagger = [:]
     dagger.supportAndroidDagger = "com.google.dagger:dagger-android-support:$versions.dagger"
     dagger.androidAnnProc = "com.google.dagger:dagger-android-processor:$versions.dagger"
 deps.dagger = dagger
+
+def facebook = [:]
+    facebook.core = "com.facebook.android:facebook-android-sdk:$versions.fb"
+deps.facebook = facebook
 
 def firebase = [:]
     firebase.core = "com.google.firebase:firebase-core:$versions.firebase.core"
