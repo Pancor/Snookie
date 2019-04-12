@@ -5,7 +5,6 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
-import io.reactivex.rxkotlin.zipWith
 import pancordev.pl.snookie.model.Result
 import pancordev.pl.snookie.utils.auth.AuthContract
 import pancordev.pl.snookie.utils.auth.AuthManager
@@ -22,7 +21,7 @@ class SnookieAuthProvider @Inject constructor(private val auth: FirebaseAuth,
 
     override fun signIn(email: String, password: String): Single<Result> {
         return credentialsValidator.validateEmail(email)
-            .zipWith(credentialsValidator.validateEmail(email), BiFunction<Result, Result, Result> {
+            .zipWith(credentialsValidator.validatePassword(password), BiFunction<Result, Result, Result> {
                     emailValidation, passwordValidation ->
                 if (emailValidation.isSucceed && passwordValidation.isSucceed) {
                     Result(isSucceed = true, code = CredentialsValidator.OK)

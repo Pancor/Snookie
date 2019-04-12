@@ -112,12 +112,34 @@ class TestSnookieAuthProvider {
     inner class WhenEmailOrPasswordValidationIsWrong {
 
         private val EMAIL_WRONG = Single.just(Result(isSucceed = false, code = CredentialsValidator.WRONG_EMAIL))
-        private val PASSWD_WRONG = Single.just(Result(isSucceed = true, code = CredentialsValidator.OK))
+        private val PASSWD_WRONG = Single.just(Result(isSucceed = false, code = CredentialsValidator.WRONG_PASSWORD))
 
         @Test
         fun `sign in with wrong email then return error`() {
             `when`(credentialsValidator.validateEmail(EMAIL)).thenReturn(EMAIL_WRONG)
             `when`(credentialsValidator.validatePassword(PASSWD)).thenReturn(PASSWD_OK)
+            val expectedResult = Result(isSucceed = false, code = CredentialsValidator.WRONG_EMAIL)
+
+            snookieAuth.signIn(EMAIL, PASSWD)
+                .test()
+                .assertValue(expectedResult)
+        }
+
+        @Test
+        fun `sign in with wrong password then return error`() {
+            `when`(credentialsValidator.validateEmail(EMAIL)).thenReturn(EMAIL_OK)
+            `when`(credentialsValidator.validatePassword(PASSWD)).thenReturn(PASSWD_WRONG)
+            val expectedResult = Result(isSucceed = false, code = CredentialsValidator.WRONG_PASSWORD)
+
+            snookieAuth.signIn(EMAIL, PASSWD)
+                .test()
+                .assertValue(expectedResult)
+        }
+
+        @Test
+        fun `sign in with wrong email and password then return error`() {
+            `when`(credentialsValidator.validateEmail(EMAIL)).thenReturn(EMAIL_WRONG)
+            `when`(credentialsValidator.validatePassword(PASSWD)).thenReturn(PASSWD_WRONG)
             val expectedResult = Result(isSucceed = false, code = CredentialsValidator.WRONG_EMAIL)
 
             snookieAuth.signIn(EMAIL, PASSWD)
