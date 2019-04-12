@@ -5,6 +5,7 @@ import pancordev.pl.snookie.di.ActivityScoped
 import pancordev.pl.snookie.model.Result
 import pancordev.pl.snookie.utils.auth.AuthContract
 import pancordev.pl.snookie.utils.auth.AuthManager
+import pancordev.pl.snookie.utils.auth.tools.CredentialsValidator
 import pancordev.pl.snookie.utils.schedulers.BaseSchedulerProvider
 import javax.inject.Inject
 
@@ -57,6 +58,8 @@ class LoginPresenter @Inject constructor(private val authManager: AuthContract.A
         when (result.code) {
             AuthManager.INVALID_PASSWD -> { view.wrongCredentials() }
             AuthManager.INVALID_USER_EMAIL -> { view.wrongCredentials() }
+            CredentialsValidator.WRONG_EMAIL -> { view.wrongCredentials() }
+            CredentialsValidator.WRONG_PASSWORD -> { view.wrongCredentials() }
             else -> { view.unknownError() }
         }
     }
