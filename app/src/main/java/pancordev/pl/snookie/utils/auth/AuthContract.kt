@@ -17,6 +17,8 @@ interface AuthContract {
         fun signInBySnookie(email: String, password: String): Single<Result>
 
         fun signUpBySnookie(): Single<Result>
+
+        fun onActivityResult(requestCode: Int, resultCode: Int)
     }
 
     interface Facebook {
@@ -24,6 +26,8 @@ interface AuthContract {
         fun signIn(): Single<Result>
 
         fun signUp(): Single<Result>
+
+        fun onActivityResult(requestCode: Int, resultCode: Int)
     }
 
     interface Snookie {

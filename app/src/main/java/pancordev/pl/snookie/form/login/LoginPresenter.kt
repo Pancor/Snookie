@@ -1,5 +1,6 @@
 package pancordev.pl.snookie.form.login
 
+import android.app.Activity
 import pancordev.pl.snookie.base.BasePresenter
 import pancordev.pl.snookie.di.ActivityScoped
 import pancordev.pl.snookie.model.Result
@@ -38,6 +39,10 @@ class LoginPresenter @Inject constructor(private val authManager: AuthContract.A
     }
 
     override fun signInByFacebook() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

@@ -12,13 +12,9 @@ import pancordev.pl.snookie.utils.schedulers.SchedulerModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AppModule::class, SchedulerModule::class,
-    AuthManagerModule::class,
-    ActivityBindingModule::class,
+@Component(modules = [AppModule::class, SchedulerModule::class, ActivityBindingModule::class,
     AndroidSupportInjectionModule::class])
 interface AppComponent: AndroidInjector<SnookieApp> {
-
-    fun getAuthManager(): AuthManager
 
     @Component.Builder
     interface Builder {

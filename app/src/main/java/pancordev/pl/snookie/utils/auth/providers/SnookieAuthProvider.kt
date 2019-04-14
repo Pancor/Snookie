@@ -5,6 +5,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
+import pancordev.pl.snookie.di.ActivityScoped
 import pancordev.pl.snookie.model.Result
 import pancordev.pl.snookie.utils.auth.AuthContract
 import pancordev.pl.snookie.utils.auth.AuthManager
@@ -14,7 +15,7 @@ import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
+@ActivityScoped
 class SnookieAuthProvider @Inject constructor(private val auth: FirebaseAuth,
                                               private val credentialsValidator: CredentialsValidatorContract)
     : AuthContract.Snookie {

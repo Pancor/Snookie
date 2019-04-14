@@ -4,9 +4,12 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import pancordev.pl.snookie.form.login.LoginActivity
 import pancordev.pl.snookie.form.login.LoginModule
+import dagger.android.support.AndroidSupportInjectionModule
 
 
-@Module
+
+
+@Module(includes = [AndroidSupportInjectionModule::class])
 abstract class ActivityBindingModule {
 
     @ActivityScoped

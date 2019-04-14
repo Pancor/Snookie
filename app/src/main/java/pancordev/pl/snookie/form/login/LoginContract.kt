@@ -32,5 +32,7 @@ interface LoginContract {
         fun signInAsAnonymous()
 
         fun singUp()
+
+        fun onActivityResult(requestCode: Int, resultCode: Int)
     }
 }

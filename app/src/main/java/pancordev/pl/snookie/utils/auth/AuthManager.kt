@@ -2,14 +2,15 @@ package pancordev.pl.snookie.utils.auth
 
 import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.Single
+import pancordev.pl.snookie.di.ActivityScoped
 import pancordev.pl.snookie.model.Result
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class AuthManager @Inject constructor(private val fbProvider: AuthContract.Facebook,
+@ActivityScoped
+class AuthManager @Inject constructor(private val auth: FirebaseAuth,
                                       private val snookieProvider: AuthContract.Snookie,
-                                      private val auth: FirebaseAuth) : AuthContract.AuthManager {
+                                      private val fbProvider: AuthContract.Facebook) : AuthContract.AuthManager {
 
     companion object {
         const val SIGN_IN_SUCCEED = "SIGN_IN_SUCCEED"
@@ -43,6 +44,10 @@ class AuthManager @Inject constructor(private val fbProvider: AuthContract.Faceb
     }
 
     override fun signUpBySnookie(): Single<Result> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
