@@ -1,5 +1,6 @@
 package pancordev.pl.snookie.utils.auth
 
+import android.content.Intent
 import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.Single
 import pancordev.pl.snookie.di.ActivityScoped
@@ -47,7 +48,7 @@ class AuthManager @Inject constructor(private val auth: FirebaseAuth,
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

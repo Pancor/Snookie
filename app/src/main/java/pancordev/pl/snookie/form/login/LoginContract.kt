@@ -1,5 +1,6 @@
 package pancordev.pl.snookie.form.login
 
+import android.content.Intent
 import pancordev.pl.snookie.base.BasePresenterContract
 import pancordev.pl.snookie.base.BaseView
 
@@ -33,6 +34,6 @@ interface LoginContract {
 
         fun singUp()
 
-        fun onActivityResult(requestCode: Int, resultCode: Int)
+        fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent)
     }
 }

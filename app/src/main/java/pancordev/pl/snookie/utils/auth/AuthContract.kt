@@ -1,5 +1,6 @@
 package pancordev.pl.snookie.utils.auth
 
+import android.content.Intent
 import io.reactivex.Single
 import pancordev.pl.snookie.model.Result
 
@@ -18,7 +19,7 @@ interface AuthContract {
 
         fun signUpBySnookie(): Single<Result>
 
-        fun onActivityResult(requestCode: Int, resultCode: Int)
+        fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent)
     }
 
     interface Facebook {
@@ -27,7 +28,7 @@ interface AuthContract {
 
         fun signUp(): Single<Result>
 
-        fun onActivityResult(requestCode: Int, resultCode: Int)
+        fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent)
     }
 
     interface Snookie {

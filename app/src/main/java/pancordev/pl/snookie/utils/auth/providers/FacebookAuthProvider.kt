@@ -1,6 +1,7 @@
 package pancordev.pl.snookie.utils.auth.providers
 
 import android.app.Activity
+import android.content.Intent
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -34,13 +35,10 @@ class FacebookAuthProvider @Inject constructor(private val auth: FirebaseAuth,
                                 emitter.onSuccess(Result(isSucceed = true, code = AuthManager.SIGN_IN_SUCCEED))
                             }
                         }
-
                 }
-
                 override fun onCancel() {
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
-
                 override fun onError(error: FacebookException) {
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
@@ -52,7 +50,7 @@ class FacebookAuthProvider @Inject constructor(private val auth: FirebaseAuth,
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         callbackManager.onActivityResult(requestCode, resultCode, null)// TODO: ???
     }
 }
