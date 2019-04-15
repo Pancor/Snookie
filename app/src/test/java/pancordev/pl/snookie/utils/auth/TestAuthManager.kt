@@ -32,7 +32,7 @@ class TestAuthManager {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        authManager = AuthManager(fbProvider, snookieProvider, auth)
+        authManager = AuthManager(auth, snookieProvider, fbProvider)
     }
 
     @Test

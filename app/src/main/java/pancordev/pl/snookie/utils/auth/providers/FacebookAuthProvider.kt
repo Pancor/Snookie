@@ -30,8 +30,8 @@ class FacebookAuthProvider @Inject constructor(private val auth: FirebaseAuth,
                     val accessToken = result.accessToken
                     val credential = FacebookAuthProvider.getCredential(accessToken.token)
                     auth.signInWithCredential(credential)
-                        .addOnCompleteListener { result ->
-                            if (result.isSuccessful) {
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
                                 emitter.onSuccess(Result(isSucceed = true, code = AuthManager.SIGN_IN_SUCCEED))
                             }
                         }
@@ -51,6 +51,6 @@ class FacebookAuthProvider @Inject constructor(private val auth: FirebaseAuth,
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        callbackManager.onActivityResult(requestCode, resultCode, null)// TODO: ???
+        callbackManager.onActivityResult(requestCode, resultCode, data)
     }
 }
