@@ -39,7 +39,7 @@ class FacebookAuthProvider @Inject constructor(private val auth: FirebaseAuth,
                         }
                 }
                 override fun onCancel() {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    emitter.onSuccess(Result(isSucceed = false, code = AuthManager.FB_SIGN_IN_CANCELED))
                 }
                 override fun onError(error: FacebookException) {
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

@@ -13,6 +13,8 @@ interface LoginContract {
 
         fun wrongCredentials()
 
+        fun canceledFacebookSignIn()
+
         fun noInternetConnection()
 
         fun serverNotResponding()

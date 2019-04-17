@@ -29,6 +29,10 @@ class LoginActivity: BaseActivity(), LoginContract.View {
         Toast.makeText(this, "wrong credits", Toast.LENGTH_LONG).show()
     }
 
+    override fun canceledFacebookSignIn() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun noInternetConnection() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

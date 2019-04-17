@@ -19,6 +19,7 @@ class AuthManager @Inject constructor(private val auth: FirebaseAuth,
         const val UNKNOWN_ERROR = "UNKNOWN_ERROR"
         const val INVALID_USER_EMAIL = "INVALID_USER_EMAIL"
         const val INVALID_PASSWD = "INVALID_PASSWD"
+        const val FB_SIGN_IN_CANCELED = "FB_SIGN_IN_CANCELED"
     }
 
     override fun checkIfUserIsSignedIn(): Single<Result> {
