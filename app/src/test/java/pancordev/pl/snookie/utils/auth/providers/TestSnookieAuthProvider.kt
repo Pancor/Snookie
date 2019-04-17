@@ -47,7 +47,7 @@ class TestSnookieAuthProvider {
     inner class WhenEmailAndPasswordValidationIsOK {
 
         @Test
-        fun `sign in with success then check ifs succeeded`() {
+        fun `sign in with success then check if succeeded`() {
             `when`(credentialsValidator.validateEmail(EMAIL)).thenReturn(EMAIL_OK)
             `when`(credentialsValidator.validatePassword(PASSWD)).thenReturn(PASSWD_OK)
             `when`(auth.signInWithEmailAndPassword(EMAIL, PASSWD)).thenReturn(authResult)

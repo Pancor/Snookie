@@ -13,6 +13,7 @@ import pancordev.pl.snookie.utils.auth.providers.FacebookAuthProvider
 import pancordev.pl.snookie.utils.auth.providers.SnookieAuthProvider
 import pancordev.pl.snookie.utils.auth.tools.CredentialsValidator
 import pancordev.pl.snookie.utils.auth.tools.CredentialsValidatorContract
+import pancordev.pl.snookie.utils.auth.tools.FacebookCredentialWrapper
 import javax.inject.Singleton
 
 @Module(includes = [AuthManagerModule.Providers::class])
@@ -29,6 +30,11 @@ class AuthManagerModule {
     @ActivityScoped
     @Provides
     fun provideCallbackManager() = CallbackManager.Factory.create()!!
+
+
+    @ActivityScoped
+    @Provides
+    fun provideFacebookCredentialWrapper() = FacebookCredentialWrapper()
 
     @Module
     interface Providers {
