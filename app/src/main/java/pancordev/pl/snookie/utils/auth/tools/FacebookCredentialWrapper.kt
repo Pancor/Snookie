@@ -7,5 +7,5 @@ import javax.inject.Singleton
 @Singleton
 class FacebookCredentialWrapper @Inject constructor(){
 
-    fun getCredential(token: String) = FacebookAuthProvider.getCredential(token)
+    fun getCredential(token: String) = FacebookAuthProvider.getCredential(token)!!
 }

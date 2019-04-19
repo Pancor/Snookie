@@ -1,6 +1,5 @@
 package pancordev.pl.snookie.form.login
 
-import android.app.Activity
 import android.content.Intent
 import pancordev.pl.snookie.base.BasePresenter
 import pancordev.pl.snookie.di.ActivityScoped
@@ -40,7 +39,16 @@ class LoginPresenter @Inject constructor(private val authManager: AuthContract.A
     }
 
     override fun signInByFacebook() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        disposable.add(authManager.signInByFacebook()
+            .observeOn(scheduler.ui())
+            .subscribeOn(scheduler.io())
+            .subscribe { result ->
+                if (result.isSucceed) {
+                    view.signedIn()
+                } else {
+                    handleSignInError(result)
+                }
+            })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
@@ -64,6 +72,8 @@ class LoginPresenter @Inject constructor(private val authManager: AuthContract.A
         when (result.code) {
             AuthManager.INVALID_PASSWD -> { view.wrongCredentials() }
             AuthManager.INVALID_USER_EMAIL -> { view.wrongCredentials() }
+            AuthManager.SIGN_IN_ERROR -> { view.signInError() }
+            AuthManager.EMAIL_IN_USE -> { view.emailAlreadyUsed() }
             CredentialsValidator.WRONG_EMAIL -> { view.wrongCredentials() }
             CredentialsValidator.WRONG_PASSWORD -> { view.wrongCredentials() }
             else -> { view.unknownError() }

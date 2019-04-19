@@ -20,6 +20,8 @@ class AuthManager @Inject constructor(private val auth: FirebaseAuth,
         const val INVALID_USER_EMAIL = "INVALID_USER_EMAIL"
         const val INVALID_PASSWD = "INVALID_PASSWD"
         const val FB_SIGN_IN_CANCELED = "FB_SIGN_IN_CANCELED"
+        const val SIGN_IN_ERROR = "SIGN_IN_ERROR"
+        const val EMAIL_IN_USE = "EMAIL_IN_USE"
     }
 
     override fun checkIfUserIsSignedIn(): Single<Result> {
@@ -34,7 +36,7 @@ class AuthManager @Inject constructor(private val auth: FirebaseAuth,
     }
 
     override fun signInByFacebook(): Single<Result> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return fbProvider.signIn()
     }
 
     override fun signUpByFacebook(): Single<Result> {

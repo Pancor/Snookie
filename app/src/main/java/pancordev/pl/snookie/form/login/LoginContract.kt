@@ -20,6 +20,10 @@ interface LoginContract {
         fun serverNotResponding()
 
         fun unknownError()
+
+        fun signInError()
+
+        fun emailAlreadyUsed()
     }
 
     interface Presenter: BasePresenterContract<View> {
