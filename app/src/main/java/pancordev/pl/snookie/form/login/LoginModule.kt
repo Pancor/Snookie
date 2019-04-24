@@ -21,5 +21,5 @@ abstract class LoginModule {
 
     @ActivityScoped
     @Binds
-    abstract fun bindAuthAanager(authManager: AuthManager): AuthContract.AuthManager
+    abstract fun bindAuthManager(authManager: AuthManager): AuthContract.AuthManager
 }

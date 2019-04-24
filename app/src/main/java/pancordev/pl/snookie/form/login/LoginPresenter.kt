@@ -4,6 +4,7 @@ import android.content.Intent
 import pancordev.pl.snookie.base.BasePresenter
 import pancordev.pl.snookie.di.ActivityScoped
 import pancordev.pl.snookie.model.Result
+import pancordev.pl.snookie.model.ResultAbs
 import pancordev.pl.snookie.utils.auth.AuthContract
 import pancordev.pl.snookie.utils.auth.AuthManager
 import pancordev.pl.snookie.utils.auth.tools.CredentialsValidator
@@ -20,7 +21,7 @@ class LoginPresenter @Inject constructor(private val authManager: AuthContract.A
             .subscribeOn(scheduler.io())
             .observeOn(scheduler.ui())
             .subscribe { result ->
-                if (result.isSucceed) {
+                if (result.isSuccessful) {
                     view.signedIn()
                 }
             })
@@ -43,7 +44,7 @@ class LoginPresenter @Inject constructor(private val authManager: AuthContract.A
             .observeOn(scheduler.ui())
             .subscribeOn(scheduler.io())
             .subscribe { result ->
-                if (result.isSucceed) {
+                if (result.isSuccessful) {
                     view.signedIn()
                 } else {
                     handleSignInError(result)
@@ -51,8 +52,8 @@ class LoginPresenter @Inject constructor(private val authManager: AuthContract.A
             })
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        authManager.onActivityResult(requestCode, resultCode, data)
+    override fun resolveUserCollision(email: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun signIn(email: String, password: String) {
@@ -60,7 +61,7 @@ class LoginPresenter @Inject constructor(private val authManager: AuthContract.A
             .observeOn(scheduler.ui())
             .subscribeOn(scheduler.io())
             .subscribe { result ->
-                if (result.isSucceed) {
+                if (result.isSuccessful) {
                     view.signedIn()
                 } else {
                     handleSignInError(result)
@@ -68,7 +69,7 @@ class LoginPresenter @Inject constructor(private val authManager: AuthContract.A
             })
     }
 
-    private fun handleSignInError(result: Result) {
+    private fun handleSignInError(result: ResultAbs) {
         when (result.code) {
             AuthManager.INVALID_PASSWD -> { view.wrongCredentials() }
             AuthManager.INVALID_USER_EMAIL -> { view.wrongCredentials() }
@@ -78,5 +79,9 @@ class LoginPresenter @Inject constructor(private val authManager: AuthContract.A
             CredentialsValidator.WRONG_PASSWORD -> { view.wrongCredentials() }
             else -> { view.unknownError() }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        authManager.onActivityResult(requestCode, resultCode, data)
     }
 }

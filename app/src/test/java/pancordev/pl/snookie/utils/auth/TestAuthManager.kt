@@ -45,7 +45,7 @@ class TestAuthManager {
     @Test
     fun checkThatUserIsSignedIn() {
         `when`(auth.currentUser).thenReturn(user)
-        val expectedResult = Result(isSucceed = true, code = AuthManager.SIGN_IN_SUCCEED)
+        val expectedResult = Result(isSuccessful = true, code = AuthManager.SIGN_IN_SUCCEED)
 
         authManager.checkIfUserIsSignedIn()
             .test()
@@ -55,7 +55,7 @@ class TestAuthManager {
     @Test
     fun checkThatUserIsNotSignedIn() {
         `when`(auth.currentUser).thenReturn(null)
-        val expectedResult = Result(isSucceed = false, code = AuthManager.NOT_SIGNED_IN)
+        val expectedResult = Result(isSuccessful = false, code = AuthManager.NOT_SIGNED_IN)
 
         authManager.checkIfUserIsSignedIn()
             .test()

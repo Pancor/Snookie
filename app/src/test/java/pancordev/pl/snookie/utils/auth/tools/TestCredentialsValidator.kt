@@ -44,27 +44,27 @@ class TestCredentialsValidator {
     fun testCorrectEmailsRegex(@FromDataPoints("correctEmails") email: String) {
         credsValidator.validateEmail(email)
             .test()
-            .assertValue { it.isSucceed }
+            .assertValue { it.isSuccessful }
     }
 
     @Theory
     fun testWrongEmailsRegex(@FromDataPoints("wrongEmails") email: String) {
         credsValidator.validateEmail(email)
             .test()
-            .assertValue { !it.isSucceed }
+            .assertValue { !it.isSuccessful }
     }
 
     @Theory
     fun testCorrectPasswordsRegex(@FromDataPoints("correctPasswords") password: String) {
         credsValidator.validatePassword(password)
             .test()
-            .assertValue { it.isSucceed }
+            .assertValue { it.isSuccessful }
     }
 
     @Theory
     fun testWrongPasswordsRegex(@FromDataPoints("wrongPasswords") password: String) {
         credsValidator.validatePassword(password)
             .test()
-            .assertValue { !it.isSucceed }
+            .assertValue { !it.isSuccessful }
     }
 }

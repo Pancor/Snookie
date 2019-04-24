@@ -9,6 +9,7 @@ import dagger.Module
 import dagger.Provides
 import pancordev.pl.snookie.di.ActivityScoped
 import pancordev.pl.snookie.form.login.LoginActivity
+import pancordev.pl.snookie.utils.auth.providers.FacebookAuthHelper
 import pancordev.pl.snookie.utils.auth.providers.FacebookAuthProvider
 import pancordev.pl.snookie.utils.auth.providers.SnookieAuthProvider
 import pancordev.pl.snookie.utils.auth.tools.CredentialsValidator
@@ -41,7 +42,7 @@ class AuthManagerModule {
 
         @ActivityScoped
         @Binds
-        fun provideFacebookAuthProvider(fbProvider: FacebookAuthProvider) : AuthContract.Facebook
+        fun provideFacebookAuthProvider(fbProvider: FacebookAuthProvider) : AuthContract.Facebook.Provider
 
         @ActivityScoped
         @Binds
@@ -50,5 +51,9 @@ class AuthManagerModule {
         @ActivityScoped
         @Binds
         fun provideCredentialsValidator(credentialsValidator: CredentialsValidator): CredentialsValidatorContract
+
+        @ActivityScoped
+        @Binds
+        fun provideFacebookAuthHelper(fbHelper: FacebookAuthHelper): AuthContract.Facebook.Helper
     }
 }

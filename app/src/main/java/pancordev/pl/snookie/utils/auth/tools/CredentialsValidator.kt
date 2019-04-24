@@ -26,7 +26,7 @@ class CredentialsValidator @Inject constructor() : CredentialsValidatorContract 
             val matcher = validEmailAddressRegex.matcher(email)
             val isEmailValid = matcher.find()
             val code = if (isEmailValid) { OK } else { WRONG_EMAIL }
-            emitter.onSuccess(Result(isSucceed = isEmailValid, code = code))
+            emitter.onSuccess(Result(isSuccessful = isEmailValid, code = code))
         }
     }
 
@@ -36,7 +36,7 @@ class CredentialsValidator @Inject constructor() : CredentialsValidatorContract 
             val matcher = validEmailAddressRegex.matcher(password)
             val isPasswordValid = matcher.find()
             val code = if (isPasswordValid) { OK } else { WRONG_PASSWORD }
-            emitter.onSuccess(Result(isSucceed = isPasswordValid, code = code))
+            emitter.onSuccess(Result(isSuccessful = isPasswordValid, code = code))
         }
     }
 }

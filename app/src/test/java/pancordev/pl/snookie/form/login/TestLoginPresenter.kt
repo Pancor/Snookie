@@ -38,7 +38,7 @@ class TestLoginPresenter {
     @Test
     fun signInByFormWithSuccessThenCheckIfSucceeded() {
         val response = Single.create<Result> {
-            it.onSuccess(Result(isSucceed = true, code = AuthManager.SIGN_IN_SUCCEED))
+            it.onSuccess(Result(isSuccessful = true, code = AuthManager.SIGN_IN_SUCCEED))
         }
         `when`(authManager.signInBySnookie(EMAIL, PASSWD)).thenReturn(response)
 
@@ -51,7 +51,7 @@ class TestLoginPresenter {
     @Test
     fun checkThatUserIsSignedInThenUpdateUI() {
         val response = Single.create<Result> {
-            it.onSuccess(Result(isSucceed = true, code = AuthManager.SIGN_IN_SUCCEED))
+            it.onSuccess(Result(isSuccessful = true, code = AuthManager.SIGN_IN_SUCCEED))
         }
         `when`(authManager.checkIfUserIsSignedIn()).thenReturn(response)
 
@@ -64,7 +64,7 @@ class TestLoginPresenter {
     @Test
     fun checkThatUserIsNotSignedInThenDoNotUpdateUI() {
         val response = Single.create<Result> {
-            it.onSuccess(Result(isSucceed = false, code = AuthManager.NOT_SIGNED_IN))
+            it.onSuccess(Result(isSuccessful = false, code = AuthManager.NOT_SIGNED_IN))
         }
         `when`(authManager.checkIfUserIsSignedIn()).thenReturn(response)
 
@@ -77,7 +77,7 @@ class TestLoginPresenter {
     @Test
     fun signInBySnookieWithWrongEmailThenUpdateUI() {
         val response = Single.create<Result> {
-            it.onSuccess(Result(isSucceed = false, code = AuthManager.INVALID_USER_EMAIL))
+            it.onSuccess(Result(isSuccessful = false, code = AuthManager.INVALID_USER_EMAIL))
         }
         `when`(authManager.signInBySnookie(EMAIL, PASSWD)).thenReturn(response)
 
@@ -91,7 +91,7 @@ class TestLoginPresenter {
     @Test
     fun signInBySnookieWithWrongPasswordThenUpdateUI() {
         val response = Single.create<Result> {
-            it.onSuccess(Result(isSucceed = false, code = AuthManager.INVALID_PASSWD))
+            it.onSuccess(Result(isSuccessful = false, code = AuthManager.INVALID_PASSWD))
         }
         `when`(authManager.signInBySnookie(EMAIL, PASSWD)).thenReturn(response)
 
@@ -105,7 +105,7 @@ class TestLoginPresenter {
     @Test
     fun signInBySnookieWithUnknownErrorThenUpdateUI() {
         val response = Single.create<Result> {
-            it.onSuccess(Result(isSucceed = false, code = AuthManager.UNKNOWN_ERROR))
+            it.onSuccess(Result(isSuccessful = false, code = AuthManager.UNKNOWN_ERROR))
         }
         `when`(authManager.signInBySnookie(EMAIL, PASSWD)).thenReturn(response)
 
@@ -119,7 +119,7 @@ class TestLoginPresenter {
     @Test
     fun signInBySnookieWithReallyUnknownErrorThenUpdateUI() {
         val response = Single.create<Result> {
-            it.onSuccess(Result(isSucceed = false, code = "random characters to simulate unknown result code"))
+            it.onSuccess(Result(isSuccessful = false, code = "random characters to simulate unknown result code"))
         }
         `when`(authManager.signInBySnookie(EMAIL, PASSWD)).thenReturn(response)
 

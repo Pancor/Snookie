@@ -41,5 +41,7 @@ interface LoginContract {
         fun singUp()
 
         fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent)
+
+        fun resolveUserCollision(email: String)
     }
 }

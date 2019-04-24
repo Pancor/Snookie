@@ -34,8 +34,8 @@ class TestSnookieAuthProvider {
 
     private val EMAIL = "email@email.email"
     private val PASSWD = "dupa1@3"
-    private val EMAIL_OK = Single.just(Result(isSucceed = true, code = CredentialsValidator.OK))
-    private val PASSWD_OK = Single.just(Result(isSucceed = true, code = CredentialsValidator.OK))
+    private val EMAIL_OK = Single.just(Result(isSuccessful = true, code = CredentialsValidator.OK))
+    private val PASSWD_OK = Single.just(Result(isSuccessful = true, code = CredentialsValidator.OK))
 
     @BeforeEach
     fun setup() {
@@ -53,7 +53,7 @@ class TestSnookieAuthProvider {
             `when`(auth.signInWithEmailAndPassword(EMAIL, PASSWD)).thenReturn(authResult)
             `when`(authResult.isSuccessful).thenReturn(true)
             callOnCompleteOfAuthResult()
-            val expectedResult = Result(isSucceed = true, code = AuthManager.SIGN_IN_SUCCEED)
+            val expectedResult = Result(isSuccessful = true, code = AuthManager.SIGN_IN_SUCCEED)
 
             snookieAuth.signIn(EMAIL, PASSWD)
                 .test()
@@ -68,7 +68,7 @@ class TestSnookieAuthProvider {
             `when`(authResult.isSuccessful).thenReturn(false)
             `when`(authResult.exception).thenReturn(Exception())
             callOnCompleteOfAuthResult()
-            val expectedResult = Result(isSucceed = false, code = AuthManager.UNKNOWN_ERROR)
+            val expectedResult = Result(isSuccessful = false, code = AuthManager.UNKNOWN_ERROR)
 
             snookieAuth.signIn(EMAIL, PASSWD)
                 .test()
@@ -84,7 +84,7 @@ class TestSnookieAuthProvider {
             val exception = mock(FirebaseAuthInvalidUserException::class.java)
             `when`(authResult.exception).thenReturn(exception)
             callOnCompleteOfAuthResult()
-            val expectedResult = Result(isSucceed = false, code = AuthManager.INVALID_USER_EMAIL)
+            val expectedResult = Result(isSuccessful = false, code = AuthManager.INVALID_USER_EMAIL)
 
             snookieAuth.signIn(EMAIL, PASSWD)
                 .test()
@@ -100,7 +100,7 @@ class TestSnookieAuthProvider {
             val exception = mock(FirebaseAuthInvalidCredentialsException::class.java)
             `when`(authResult.exception).thenReturn(exception)
             callOnCompleteOfAuthResult()
-            val expectedResult = Result(isSucceed = false, code = AuthManager.INVALID_PASSWD)
+            val expectedResult = Result(isSuccessful = false, code = AuthManager.INVALID_PASSWD)
 
             snookieAuth.signIn(EMAIL, PASSWD)
                 .test()
@@ -111,14 +111,14 @@ class TestSnookieAuthProvider {
     @Nested
     inner class WhenEmailOrPasswordValidationIsWrong {
 
-        private val EMAIL_WRONG = Single.just(Result(isSucceed = false, code = CredentialsValidator.WRONG_EMAIL))
-        private val PASSWD_WRONG = Single.just(Result(isSucceed = false, code = CredentialsValidator.WRONG_PASSWORD))
+        private val EMAIL_WRONG = Single.just(Result(isSuccessful = false, code = CredentialsValidator.WRONG_EMAIL))
+        private val PASSWD_WRONG = Single.just(Result(isSuccessful = false, code = CredentialsValidator.WRONG_PASSWORD))
 
         @Test
         fun `sign in with wrong email then return error`() {
             `when`(credentialsValidator.validateEmail(EMAIL)).thenReturn(EMAIL_WRONG)
             `when`(credentialsValidator.validatePassword(PASSWD)).thenReturn(PASSWD_OK)
-            val expectedResult = Result(isSucceed = false, code = CredentialsValidator.WRONG_EMAIL)
+            val expectedResult = Result(isSuccessful = false, code = CredentialsValidator.WRONG_EMAIL)
 
             snookieAuth.signIn(EMAIL, PASSWD)
                 .test()
@@ -129,7 +129,7 @@ class TestSnookieAuthProvider {
         fun `sign in with wrong password then return error`() {
             `when`(credentialsValidator.validateEmail(EMAIL)).thenReturn(EMAIL_OK)
             `when`(credentialsValidator.validatePassword(PASSWD)).thenReturn(PASSWD_WRONG)
-            val expectedResult = Result(isSucceed = false, code = CredentialsValidator.WRONG_PASSWORD)
+            val expectedResult = Result(isSuccessful = false, code = CredentialsValidator.WRONG_PASSWORD)
 
             snookieAuth.signIn(EMAIL, PASSWD)
                 .test()
@@ -140,7 +140,7 @@ class TestSnookieAuthProvider {
         fun `sign in with wrong email and password then return error`() {
             `when`(credentialsValidator.validateEmail(EMAIL)).thenReturn(EMAIL_WRONG)
             `when`(credentialsValidator.validatePassword(PASSWD)).thenReturn(PASSWD_WRONG)
-            val expectedResult = Result(isSucceed = false, code = CredentialsValidator.WRONG_EMAIL)
+            val expectedResult = Result(isSuccessful = false, code = CredentialsValidator.WRONG_EMAIL)
 
             snookieAuth.signIn(EMAIL, PASSWD)
                 .test()

@@ -74,7 +74,7 @@ class TestFacebookAuthProvider {
 
         facebookAuthProvider.signIn()
             .test()
-            .assertValue(Result(isSucceed = true, code = AuthManager.SIGN_IN_SUCCEED))
+            .assertValue(Result(isSuccessful = true, code = AuthManager.SIGN_IN_SUCCEED))
     }
 
     @Suppress("UNCHECKED_CAST")

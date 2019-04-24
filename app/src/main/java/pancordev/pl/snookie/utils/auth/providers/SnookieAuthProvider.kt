@@ -13,7 +13,6 @@ import pancordev.pl.snookie.utils.auth.tools.CredentialsValidator
 import pancordev.pl.snookie.utils.auth.tools.CredentialsValidatorContract
 import java.lang.Exception
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @ActivityScoped
 class SnookieAuthProvider @Inject constructor(private val auth: FirebaseAuth,
@@ -24,14 +23,14 @@ class SnookieAuthProvider @Inject constructor(private val auth: FirebaseAuth,
         return credentialsValidator.validateEmail(email)
             .zipWith(credentialsValidator.validatePassword(password), BiFunction<Result, Result, Result> {
                     emailValidation, passwordValidation ->
-                if (emailValidation.isSucceed && passwordValidation.isSucceed) {
-                    Result(isSucceed = true, code = CredentialsValidator.OK)
+                if (emailValidation.isSuccessful && passwordValidation.isSuccessful) {
+                    Result(isSuccessful = true, code = CredentialsValidator.OK)
                 } else {
-                    if (emailValidation.isSucceed) { passwordValidation } else { emailValidation }
+                    if (emailValidation.isSuccessful) { passwordValidation } else { emailValidation }
                 }
             })
             .flatMap { result ->
-                if (result.isSucceed) {
+                if (result.isSuccessful) {
                     signInWithFirebase(email, password)
                 } else {
                     Single.just(result)
@@ -45,7 +44,7 @@ class SnookieAuthProvider @Inject constructor(private val auth: FirebaseAuth,
                 .addOnCompleteListener { task ->
                     val result =
                         if (task.isSuccessful) {
-                            Result(isSucceed = true, code = AuthManager.SIGN_IN_SUCCEED)
+                            Result(isSuccessful = true, code = AuthManager.SIGN_IN_SUCCEED)
                         } else {
                             convertExceptionToResult(task.exception)
                         }

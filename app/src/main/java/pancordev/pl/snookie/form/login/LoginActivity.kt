@@ -1,5 +1,6 @@
 package pancordev.pl.snookie.form.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.act_login.*
@@ -10,6 +11,14 @@ import javax.inject.Inject
 
 class LoginActivity: BaseActivity(), LoginContract.View {
 
+    override fun signInError() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun emailAlreadyUsed() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     @Inject
     lateinit var presenter: LoginContract.Presenter
 
@@ -19,6 +28,12 @@ class LoginActivity: BaseActivity(), LoginContract.View {
         presenter.onSetView(this)
 
         signInView.setOnClickListener { presenter.signIn(emailView.text.toString(), passwordView.text.toString()) }
+        fbSignInView.setOnClickListener { presenter.signInByFacebook() }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
+        presenter.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun signedIn() {
