@@ -81,7 +81,7 @@ class LoginPresenter @Inject constructor(private val authManager: AuthContract.A
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         authManager.onActivityResult(requestCode, resultCode, data)
     }
 }

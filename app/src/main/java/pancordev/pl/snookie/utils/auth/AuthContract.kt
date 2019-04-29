@@ -24,7 +24,7 @@ interface AuthContract {
 
         fun signUpBySnookie(): Single<Result>
 
-        fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent)
+        fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
     }
 
     interface Facebook {
@@ -35,7 +35,7 @@ interface AuthContract {
 
             fun signUp(): Single<Result>
 
-            fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent)
+            fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
         }
 
         interface Helper {
@@ -48,7 +48,7 @@ interface AuthContract {
 
             fun signInToFirebase(credential: AuthCredential): Single<Result>
 
-            fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent)
+            fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
         }
     }
 

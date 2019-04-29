@@ -54,7 +54,7 @@ class AuthManager @Inject constructor(private val auth: FirebaseAuth,
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         fbProvider.onActivityResult(requestCode, resultCode, data)
     }
 }

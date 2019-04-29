@@ -37,7 +37,7 @@ dependencies {
     testRuntimeOnly deps.unitest.junit4Engine
 
     //unit tests
-    testImplementation deps.unitest.mockito
+    testImplementation deps.unitest.mockk
     androidTestImplementation deps.support.tests.runner
     androidTestImplementation deps.support.tests.espresso
 
