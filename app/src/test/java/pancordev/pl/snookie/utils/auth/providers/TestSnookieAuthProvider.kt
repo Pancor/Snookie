@@ -6,6 +6,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
 import io.reactivex.Single
@@ -32,6 +33,7 @@ class TestSnookieAuthProvider {
 
     @BeforeEach
     fun setup() {
+        clearMocks(auth, credentialsValidator, authResult)
         snookieAuth = SnookieAuthProvider(auth, credentialsValidator)
     }
 

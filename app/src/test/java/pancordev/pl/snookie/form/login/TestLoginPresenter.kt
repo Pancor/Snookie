@@ -22,6 +22,7 @@ class TestLoginPresenter {
 
     @BeforeEach
     fun setup() {
+        clearMocks(authManager, view)
         scheduler = TrampolineSchedulerProvider()
         loginPresenter = LoginPresenter(authManager, scheduler)
         loginPresenter.onSetView(view)

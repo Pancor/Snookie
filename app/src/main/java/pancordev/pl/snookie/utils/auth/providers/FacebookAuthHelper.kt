@@ -7,6 +7,7 @@ import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.firebase.auth.*
+import com.google.firebase.auth.FacebookAuthProvider
 import io.reactivex.Single
 import pancordev.pl.snookie.di.ActivityScoped
 import pancordev.pl.snookie.model.Result
@@ -15,7 +16,6 @@ import pancordev.pl.snookie.utils.auth.AuthContract
 import pancordev.pl.snookie.utils.auth.AuthManager
 import pancordev.pl.snookie.utils.auth.models.FbLoginResult
 import pancordev.pl.snookie.utils.auth.models.GraphResult
-import pancordev.pl.snookie.utils.auth.tools.FacebookCredentialWrapper
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -23,8 +23,7 @@ import javax.inject.Inject
 class FacebookAuthHelper @Inject constructor(private val auth: FirebaseAuth,
                                              private val loginManager: LoginManager,
                                              private val callbackManager: CallbackManager,
-                                             private val activity: Activity,
-                                             private val fbCredentialWrapper: FacebookCredentialWrapper)
+                                             private val activity: Activity)
     : AuthContract.Facebook.Helper {
 
     override fun signInToFacebook() = Single.create<FbLoginResult> {
@@ -55,7 +54,7 @@ class FacebookAuthHelper @Inject constructor(private val auth: FirebaseAuth,
                 val result =
                     if (user.has("email") && !user.isNull("email")) {
                         val email = user.getString("email")
-                        val credential = fbCredentialWrapper.getCredential(accessToken.token)
+                        val credential = FacebookAuthProvider.getCredential(accessToken.token)
                         GraphResult(isSuccessful = true, code = "", email = email, credential = credential)
                     } else {
                         GraphResult(isSuccessful = false, code = AuthManager.UNKNOWN_ERROR)

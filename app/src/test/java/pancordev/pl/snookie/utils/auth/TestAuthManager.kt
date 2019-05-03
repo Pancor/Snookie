@@ -22,6 +22,7 @@ class TestAuthManager {
 
     @Before
     fun setup() {
+        clearMocks(fbProvider, snookieProvider, auth, user)
         authManager = AuthManager(auth, snookieProvider, fbProvider)
     }
 
