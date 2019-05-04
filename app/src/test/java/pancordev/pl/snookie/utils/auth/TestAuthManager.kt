@@ -1,11 +1,12 @@
 package pancordev.pl.snookie.utils.auth
 
+import android.content.Intent
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import io.mockk.*
 import io.reactivex.Single
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import pancordev.pl.snookie.model.Result
 
 class TestAuthManager {
@@ -20,14 +21,14 @@ class TestAuthManager {
     private val EMAIL = "email@email.email"
     private val PASSWD = "dupa1@3"
 
-    @Before
+    @BeforeEach
     fun setup() {
         clearMocks(fbProvider, snookieProvider, auth, user)
         authManager = AuthManager(auth, snookieProvider, fbProvider)
     }
 
     @Test
-    fun signInBySnookieWithSuccessThenCheckIfSucceeded() {
+    fun `sign in by snookie with success then check if succeeded`() {
         every { snookieProvider.signIn(EMAIL, PASSWD) } returns Single.just(Result(true, ""))
 
         authManager.signInBySnookie(EMAIL, PASSWD)
@@ -36,7 +37,25 @@ class TestAuthManager {
     }
 
     @Test
-    fun checkThatUserIsSignedIn() {
+    fun `sign in by facebook then check if call was made`() {
+        every { fbProvider.signIn()} returns Single.just(Result(true, ""))
+
+        authManager.signInByFacebook()
+
+        verify { fbProvider.signIn() }
+    }
+
+    @Test
+    fun `call onActivityResult then check if call was made`() {
+        every { fbProvider.onActivityResult(any(), any(), any()) } just Runs
+
+        authManager.onActivityResult(0, 0, Intent())
+
+        verify { fbProvider.onActivityResult(any(), any(), any())}
+    }
+
+    @Test
+    fun `check that user is signed in`() {
         every { auth.currentUser } returns user
         val expectedResult = Result(isSuccessful = true, code = AuthManager.SIGN_IN_SUCCEED)
 
@@ -46,7 +65,7 @@ class TestAuthManager {
     }
 
     @Test
-    fun checkThatUserIsNotSignedIn() {
+    fun `check that user is not signed in`() {
         every { auth.currentUser } returns null
         val expectedResult = Result(isSuccessful = false, code = AuthManager.NOT_SIGNED_IN)
 

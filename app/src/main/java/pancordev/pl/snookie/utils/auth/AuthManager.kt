@@ -1,7 +1,6 @@
 package pancordev.pl.snookie.utils.auth
 
 import android.content.Intent
-import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.Single
 import pancordev.pl.snookie.di.ActivityScoped
