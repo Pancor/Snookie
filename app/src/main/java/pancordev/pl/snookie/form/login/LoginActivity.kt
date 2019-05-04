@@ -21,6 +21,7 @@ class LoginActivity: BaseActivity(), LoginContract.View {
 
         signInView.setOnClickListener { presenter.signIn(emailView.text.toString(), passwordView.text.toString()) }
         fbSignInView.setOnClickListener { presenter.signInByFacebook() }
+        signInAnonymouslyView.setOnClickListener { presenter.signInAsAnonymous() }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
