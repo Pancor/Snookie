@@ -40,6 +40,10 @@ class AuthManager @Inject constructor(private val auth: FirebaseAuth,
         return fbProvider.signIn()
     }
 
+    override fun signInAnonymously(): Single<ResultAbs> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun signUpByFacebook(): Single<Result> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

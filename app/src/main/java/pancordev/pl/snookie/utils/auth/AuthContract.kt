@@ -18,6 +18,8 @@ interface AuthContract {
 
         fun signInByFacebook(): Single<ResultAbs>
 
+        fun signInAnonymously(): Single<ResultAbs>
+
         fun signUpByFacebook(): Single<Result>
 
         fun signInBySnookie(email: String, password: String): Single<Result>
@@ -57,5 +59,10 @@ interface AuthContract {
         fun signIn(email: String, password: String): Single<Result>
 
         fun signUp(): Single<Result>
+    }
+
+    interface Anonymous {
+
+        fun signIn(): Single<ResultAbs>
     }
 }
