@@ -21,9 +21,8 @@ class AuthManager @Inject constructor(private val auth: FirebaseAuth,
         const val INVALID_PASSWD = "INVALID_PASSWD"
         const val FB_SIGN_IN_CANCELED = "FB_SIGN_IN_CANCELED"
         const val SIGN_IN_ERROR = "SIGN_IN_ERROR"
-        const val EMAIL_IN_USE = "EMAIL_IN_USE"
         const val WRONG_PROVIDER = "WRONG_PROVIDER"
-        const val EMAIL_PERMISSIONS_NOT_GRANTED = "EMAIL_PERMISSIONS_NOT_GRANTED"
+        const val FB_EMAIL_PERMISSIONS_NOT_GRANTED = "FB_EMAIL_PERMISSIONS_NOT_GRANTED"
     }
 
     override fun checkIfUserIsSignedIn(): Single<Result> {

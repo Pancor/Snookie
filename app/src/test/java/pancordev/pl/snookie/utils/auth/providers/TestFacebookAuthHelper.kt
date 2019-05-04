@@ -1,6 +1,7 @@
 package pancordev.pl.snookie.utils.auth.providers
 
 import android.app.Activity
+import android.content.Intent
 import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
@@ -18,6 +19,7 @@ import pancordev.pl.snookie.utils.auth.AuthContract
 import pancordev.pl.snookie.utils.auth.AuthManager
 import pancordev.pl.snookie.utils.auth.models.FbLoginResult
 import pancordev.pl.snookie.utils.auth.models.GraphResult
+import java.lang.Exception
 
 class TestFacebookAuthHelper {
 
@@ -89,7 +91,7 @@ class TestFacebookAuthHelper {
 
         @Test
         fun `call onSuccess with not granted email permission then return error`() {
-            val expectedResult = FbLoginResult(isSuccessful= false, code = AuthManager.EMAIL_PERMISSIONS_NOT_GRANTED)
+            val expectedResult = FbLoginResult(isSuccessful= false, code = AuthManager.FB_EMAIL_PERMISSIONS_NOT_GRANTED)
             every { loginManager.logInWithReadPermissions(activity, arrayListOf("email")) } just Runs
             every { loginManager.registerCallback(callbackManager, any()) } answers {
                 secondArg<FacebookCallback<LoginResult>>().onSuccess(loginResult)
@@ -321,7 +323,7 @@ class TestFacebookAuthHelper {
 
         @Test
         fun `with collision error then return that error`() {
-            val expectedResult = Result(isSuccessful = false, code = AuthManager.EMAIL_IN_USE )
+            val expectedResult = Result(isSuccessful = false, code = AuthManager.WRONG_PROVIDER )
             every { authResult.addOnCompleteListener(any()) } answers {
                 firstArg<OnCompleteListener<AuthResult>>().onComplete(authResult)
                 authResult
@@ -334,5 +336,30 @@ class TestFacebookAuthHelper {
                 .test()
                 .assertValue(expectedResult)
         }
+
+        @Test
+        fun `with unknown error then return that error`() {
+            val expectedResult = Result(isSuccessful = false, code = AuthManager.UNKNOWN_ERROR )
+            every { authResult.addOnCompleteListener(any()) } answers {
+                firstArg<OnCompleteListener<AuthResult>>().onComplete(authResult)
+                authResult
+            }
+            every { auth.signInWithCredential(credential) } returns authResult
+            every { authResult.isSuccessful } returns false
+            every { authResult.exception } returns Exception()
+
+            fbHelper.signInToFirebase(credential)
+                .test()
+                .assertValue(expectedResult)
+        }
+    }
+
+    @Test
+    fun `call onActivityResult then check if call was made`() {
+        every { callbackManager.onActivityResult(any(), any(), any()) } returns true
+
+        fbHelper.onActivityResult(0, 0, Intent())
+
+        verify { callbackManager.onActivityResult(any(), any(), any()) }
     }
 }

@@ -13,8 +13,6 @@ interface LoginContract {
 
         fun wrongCredentials()
 
-        fun canceledFacebookSignIn()
-
         fun noInternetConnection()
 
         fun serverNotResponding()
@@ -23,7 +21,11 @@ interface LoginContract {
 
         fun signInError()
 
-        fun emailAlreadyUsed()
+        fun wrongProvider()
+
+        fun facebookSignInCancelled()
+
+        fun notGrantedFacebookUserEmailPermissions()
     }
 
     interface Presenter: BasePresenterContract<View> {

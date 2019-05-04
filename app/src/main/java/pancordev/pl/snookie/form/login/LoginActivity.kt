@@ -11,14 +11,6 @@ import javax.inject.Inject
 
 class LoginActivity: BaseActivity(), LoginContract.View {
 
-    override fun signInError() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun emailAlreadyUsed() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     @Inject
     lateinit var presenter: LoginContract.Presenter
 
@@ -44,10 +36,6 @@ class LoginActivity: BaseActivity(), LoginContract.View {
         Toast.makeText(this, "wrong credits", Toast.LENGTH_LONG).show()
     }
 
-    override fun canceledFacebookSignIn() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun noInternetConnection() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -58,5 +46,21 @@ class LoginActivity: BaseActivity(), LoginContract.View {
 
     override fun unknownError() {
         Toast.makeText(this, "unknown error", Toast.LENGTH_LONG).show()
+    }
+
+    override fun facebookSignInCancelled() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun notGrantedFacebookUserEmailPermissions() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun signInError() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun wrongProvider() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

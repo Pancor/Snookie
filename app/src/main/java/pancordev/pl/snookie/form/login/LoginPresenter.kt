@@ -3,7 +3,6 @@ package pancordev.pl.snookie.form.login
 import android.content.Intent
 import pancordev.pl.snookie.base.BasePresenter
 import pancordev.pl.snookie.di.ActivityScoped
-import pancordev.pl.snookie.model.Result
 import pancordev.pl.snookie.model.ResultAbs
 import pancordev.pl.snookie.utils.auth.AuthContract
 import pancordev.pl.snookie.utils.auth.AuthManager
@@ -74,7 +73,9 @@ class LoginPresenter @Inject constructor(private val authManager: AuthContract.A
             AuthManager.INVALID_PASSWD -> { view.wrongCredentials() }
             AuthManager.INVALID_USER_EMAIL -> { view.wrongCredentials() }
             AuthManager.SIGN_IN_ERROR -> { view.signInError() }
-            AuthManager.EMAIL_IN_USE -> { view.emailAlreadyUsed() }
+            AuthManager.WRONG_PROVIDER -> { view.wrongProvider() }
+            AuthManager.FB_SIGN_IN_CANCELED -> { view.facebookSignInCancelled() }
+            AuthManager.FB_EMAIL_PERMISSIONS_NOT_GRANTED -> { view.notGrantedFacebookUserEmailPermissions() }
             CredentialsValidator.WRONG_EMAIL -> { view.wrongCredentials() }
             CredentialsValidator.WRONG_PASSWORD -> { view.wrongCredentials() }
             else -> { view.unknownError() }

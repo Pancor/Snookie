@@ -32,7 +32,7 @@ class FacebookAuthHelper @Inject constructor(private val auth: FirebaseAuth,
             override fun onSuccess(loginResult: LoginResult) {
                 val result =
                     if (loginResult.recentlyDeniedPermissions.contains("email")) {
-                        FbLoginResult(isSuccessful = false, code = AuthManager.EMAIL_PERMISSIONS_NOT_GRANTED)
+                        FbLoginResult(isSuccessful = false, code = AuthManager.FB_EMAIL_PERMISSIONS_NOT_GRANTED)
                     } else {
                         FbLoginResult(isSuccessful = true, code = AuthManager.SIGN_IN_SUCCEED,
                             accessToken = loginResult.accessToken)
@@ -106,7 +106,7 @@ class FacebookAuthHelper @Inject constructor(private val auth: FirebaseAuth,
         val code = when (exception) {
             is FirebaseAuthInvalidUserException -> { AuthManager.SIGN_IN_ERROR }
             is FirebaseAuthInvalidCredentialsException -> { AuthManager.SIGN_IN_ERROR }
-            is FirebaseAuthUserCollisionException -> { AuthManager.EMAIL_IN_USE }
+            is FirebaseAuthUserCollisionException -> { AuthManager.WRONG_PROVIDER }
             else -> AuthManager.UNKNOWN_ERROR
         }
         return Result(isSucceed, code)
