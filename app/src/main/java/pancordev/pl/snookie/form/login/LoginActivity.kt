@@ -38,11 +38,7 @@ class LoginActivity: BaseActivity(), LoginContract.View {
     }
 
     override fun noInternetConnection() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun serverNotResponding() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(this, "no internet connection", Toast.LENGTH_LONG).show()
     }
 
     override fun unknownError() {
@@ -50,18 +46,18 @@ class LoginActivity: BaseActivity(), LoginContract.View {
     }
 
     override fun facebookSignInCancelled() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(this, "fb sign in cancelled", Toast.LENGTH_LONG).show()
     }
 
     override fun notGrantedFacebookUserEmailPermissions() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(this, "fb user not granted email permissions", Toast.LENGTH_LONG).show()
     }
 
     override fun signInError() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(this, "sign in error", Toast.LENGTH_LONG).show()
     }
 
     override fun wrongProvider() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(this, "wrong provider", Toast.LENGTH_LONG).show()
     }
 }

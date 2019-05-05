@@ -15,8 +15,6 @@ interface LoginContract {
 
         fun noInternetConnection()
 
-        fun serverNotResponding()
-
         fun unknownError()
 
         fun signInError()
