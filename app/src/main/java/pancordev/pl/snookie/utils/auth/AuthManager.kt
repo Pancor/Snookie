@@ -40,9 +40,6 @@ class AuthManager @Inject constructor(private val auth: FirebaseAuth,
 
     override fun signInAnonymously() = anonymousProvider.signIn()
 
-    override fun signUpByFacebook(): Single<Result> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     override fun signInBySnookie(email: String, password: String) = snookieProvider.signIn(email, password)
 

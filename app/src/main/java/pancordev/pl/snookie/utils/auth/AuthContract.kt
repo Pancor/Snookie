@@ -20,8 +20,6 @@ interface AuthContract {
 
         fun signInAnonymously(): Single<ResultAbs>
 
-        fun signUpByFacebook(): Single<Result>
-
         fun signInBySnookie(email: String, password: String): Single<Result>
 
         fun signUpBySnookie(): Single<Result>
