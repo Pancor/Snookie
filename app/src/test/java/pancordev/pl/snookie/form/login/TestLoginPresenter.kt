@@ -237,6 +237,33 @@ class TestLoginPresenter {
         }
     }
 
+    @Nested
+    inner class SignInAnonymously {
+
+        @Test
+        fun `with success then inform view about it`() {
+            val result = Result(isSuccessful = true, code = AuthManager.SIGN_IN_SUCCEED)
+            every { authManager.signInAnonymously() } returns Single.just(result)
+            every { view.signedIn() } just Runs
+
+            loginPresenter.signInAsAnonymous()
+
+            verify { view.signedIn() }
+        }
+
+        @Test
+        fun `with unknown error then inform view about it`() {
+            val result = Result(isSuccessful = false, code = AuthManager.UNKNOWN_ERROR)
+            every { authManager.signInAnonymously() } returns Single.just(result)
+            every { view.unknownError() } just Runs
+
+            loginPresenter.signInAsAnonymous()
+
+            verify(exactly = 0) { view.signedIn() }
+            verify { view.unknownError() }
+        }
+    }
+
     @Test
     fun `check that user is signed in then update UI`() {
         val response = Single.just(Result(isSuccessful = true, code = AuthManager.SIGN_IN_SUCCEED))

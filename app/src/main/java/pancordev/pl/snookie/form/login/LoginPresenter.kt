@@ -31,7 +31,16 @@ class LoginPresenter @Inject constructor(private val authManager: AuthContract.A
     }
 
     override fun signInAsAnonymous() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        disposable.add(authManager.signInAnonymously()
+            .observeOn(scheduler.ui())
+            .subscribeOn(scheduler.io())
+            .subscribe { result ->
+                if (result.isSuccessful) {
+                    view.signedIn()
+                } else {
+                    handleSignInError(result)
+                }
+            })
     }
 
     override fun singUp() {
