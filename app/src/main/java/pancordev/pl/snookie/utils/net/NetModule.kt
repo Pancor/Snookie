@@ -11,9 +11,5 @@ class NetModule {
 
     @Provides
     @ActivityScoped
-    fun provideSocket() = Socket()
-
-    @Provides
-    @ActivityScoped
     fun provideSocketAddress() = InetSocketAddress("8.8.8.8", 53)
 }

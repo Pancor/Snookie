@@ -1,5 +1,6 @@
 package pancordev.pl.snookie.utils.net
 
+import android.util.Log
 import io.reactivex.Single
 import pancordev.pl.snookie.di.ActivityScoped
 import java.io.IOException
@@ -8,8 +9,7 @@ import java.net.Socket
 import javax.inject.Inject
 
 @ActivityScoped
-class NetConnection @Inject constructor(private val socket:Socket,
-                                        private val socketAddress: InetSocketAddress): NetContract {
+class NetConnection @Inject constructor(private val socketAddress: InetSocketAddress): NetContract {
 
     companion object {
         const val NO_INTERNET_CONNECTION = "NO_INTERNET_CONNECTION "
@@ -18,10 +18,12 @@ class NetConnection @Inject constructor(private val socket:Socket,
 
     override fun hasInternetConnection() = Single.fromCallable {
         try {
+            val socket = Socket()
             socket.connect(socketAddress, timeout)
             socket.close()
             true
         } catch (e: IOException) {
+            Log.e("EEEEEEEEE", e.toString())
             false
         }
     }
