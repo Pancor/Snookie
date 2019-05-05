@@ -15,6 +15,7 @@ class TestAuthManager {
 
     private val fbProvider: AuthContract.Facebook.Provider = mockk()
     private val snookieProvider: AuthContract.Snookie = mockk()
+    private val anonymousProvider: AuthContract.Anonymous = mockk()
     private val auth: FirebaseAuth = mockk()
     private val user: FirebaseUser = mockk()
 
@@ -23,8 +24,8 @@ class TestAuthManager {
 
     @BeforeEach
     fun setup() {
-        clearMocks(fbProvider, snookieProvider, auth, user)
-        authManager = AuthManager(auth, snookieProvider, fbProvider)
+        clearMocks(fbProvider, snookieProvider, auth, user, anonymousProvider)
+        authManager = AuthManager(auth, snookieProvider, fbProvider, anonymousProvider)
     }
 
     @Test
@@ -43,6 +44,15 @@ class TestAuthManager {
         authManager.signInByFacebook()
 
         verify { fbProvider.signIn() }
+    }
+
+    @Test
+    fun `sign in anonymously then check if call was made`() {
+        every { anonymousProvider.signIn()} returns Single.just(Result(true, ""))
+
+        authManager.signInAnonymously()
+
+        verify { anonymousProvider.signIn() }
     }
 
     @Test

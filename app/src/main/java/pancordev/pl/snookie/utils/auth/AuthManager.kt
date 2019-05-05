@@ -5,13 +5,13 @@ import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.Single
 import pancordev.pl.snookie.di.ActivityScoped
 import pancordev.pl.snookie.model.Result
-import pancordev.pl.snookie.model.ResultAbs
 import javax.inject.Inject
 
 @ActivityScoped
 class AuthManager @Inject constructor(private val auth: FirebaseAuth,
                                       private val snookieProvider: AuthContract.Snookie,
-                                      private val fbProvider: AuthContract.Facebook.Provider) : AuthContract.AuthManager {
+                                      private val fbProvider: AuthContract.Facebook.Provider,
+                                      private val anonymousProvider: AuthContract.Anonymous) : AuthContract.AuthManager {
 
     companion object {
         const val SIGN_IN_SUCCEED = "SIGN_IN_SUCCEED"
@@ -36,21 +36,15 @@ class AuthManager @Inject constructor(private val auth: FirebaseAuth,
         }
     }
 
-    override fun signInByFacebook(): Single<ResultAbs> {
-        return fbProvider.signIn()
-    }
+    override fun signInByFacebook() = fbProvider.signIn()
 
-    override fun signInAnonymously(): Single<ResultAbs> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun signInAnonymously() = anonymousProvider.signIn()
 
     override fun signUpByFacebook(): Single<Result> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun signInBySnookie(email: String, password: String): Single<Result> {
-        return snookieProvider.signIn(email, password)
-    }
+    override fun signInBySnookie(email: String, password: String) = snookieProvider.signIn(email, password)
 
     override fun signUpBySnookie(): Single<Result> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
