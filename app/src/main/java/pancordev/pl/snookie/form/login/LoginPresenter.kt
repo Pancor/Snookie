@@ -1,18 +1,23 @@
 package pancordev.pl.snookie.form.login
 
 import android.content.Intent
+import io.reactivex.Single
 import pancordev.pl.snookie.base.BasePresenter
 import pancordev.pl.snookie.di.ActivityScoped
+import pancordev.pl.snookie.model.Result
 import pancordev.pl.snookie.model.ResultAbs
 import pancordev.pl.snookie.utils.auth.AuthContract
 import pancordev.pl.snookie.utils.auth.AuthManager
 import pancordev.pl.snookie.utils.auth.tools.CredentialsValidator
+import pancordev.pl.snookie.utils.net.NetConnection
+import pancordev.pl.snookie.utils.net.NetContract
 import pancordev.pl.snookie.utils.schedulers.BaseSchedulerProvider
 import javax.inject.Inject
 
 @ActivityScoped
 class LoginPresenter @Inject constructor(private val authManager: AuthContract.AuthManager,
-                                         private val scheduler: BaseSchedulerProvider)
+                                         private val scheduler: BaseSchedulerProvider,
+                                         private val netConnection: NetContract)
     : BasePresenter<LoginContract.View>(), LoginContract.Presenter {
 
     override fun checkIfUserIsSignedIn() {
@@ -31,7 +36,14 @@ class LoginPresenter @Inject constructor(private val authManager: AuthContract.A
     }
 
     override fun signInAsAnonymous() {
-        disposable.add(authManager.signInAnonymously()
+        disposable.add(netConnection.hasInternetConnection()
+            .flatMap { hasInternetConnection ->
+                if (hasInternetConnection) {
+                    authManager.signInAnonymously()
+                } else {
+                    Single.just(Result(isSuccessful = false, code = NetConnection.NO_INTERNET_CONNECTION))
+                }
+            }
             .observeOn(scheduler.ui())
             .subscribeOn(scheduler.io())
             .subscribe { result ->
@@ -48,7 +60,14 @@ class LoginPresenter @Inject constructor(private val authManager: AuthContract.A
     }
 
     override fun signInByFacebook() {
-        disposable.add(authManager.signInByFacebook()
+        disposable.add(netConnection.hasInternetConnection()
+            .flatMap { hasInternetConnection ->
+                if (hasInternetConnection) {
+                    authManager.signInByFacebook()
+                } else {
+                    Single.just(Result(isSuccessful = false, code = NetConnection.NO_INTERNET_CONNECTION))
+                }
+            }
             .observeOn(scheduler.ui())
             .subscribeOn(scheduler.io())
             .subscribe { result ->
@@ -65,7 +84,14 @@ class LoginPresenter @Inject constructor(private val authManager: AuthContract.A
     }
 
     override fun signIn(email: String, password: String) {
-        disposable.add(authManager.signInBySnookie(email, password)
+        disposable.add(netConnection.hasInternetConnection()
+            .flatMap { hasInternetConnection ->
+                if (hasInternetConnection) {
+                    authManager.signInBySnookie(email, password)
+                } else {
+                    Single.just(Result(isSuccessful = false, code = NetConnection.NO_INTERNET_CONNECTION))
+                }
+            }
             .observeOn(scheduler.ui())
             .subscribeOn(scheduler.io())
             .subscribe { result ->
@@ -87,6 +113,7 @@ class LoginPresenter @Inject constructor(private val authManager: AuthContract.A
             AuthManager.FB_EMAIL_PERMISSIONS_NOT_GRANTED -> { view.notGrantedFacebookUserEmailPermissions() }
             CredentialsValidator.WRONG_EMAIL -> { view.wrongCredentials() }
             CredentialsValidator.WRONG_PASSWORD -> { view.wrongCredentials() }
+            NetConnection.NO_INTERNET_CONNECTION -> { view.noInternetConnection() }
             else -> { view.unknownError() }
         }
     }
