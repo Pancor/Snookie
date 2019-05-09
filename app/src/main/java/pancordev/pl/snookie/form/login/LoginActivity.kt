@@ -24,6 +24,10 @@ class LoginActivity: BaseActivity(), LoginContract.View {
         signInAnonymouslyView.setOnClickListener { presenter.signInAsAnonymous() }
     }
 
+    override fun restorePassword() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         presenter.onActivityResult(requestCode, resultCode, data)

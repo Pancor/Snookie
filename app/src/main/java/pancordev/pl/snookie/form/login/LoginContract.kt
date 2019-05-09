@@ -24,6 +24,8 @@ interface LoginContract {
         fun facebookSignInCancelled()
 
         fun notGrantedFacebookUserEmailPermissions()
+
+        fun restorePassword()
     }
 
     interface Presenter: BasePresenterContract<View> {

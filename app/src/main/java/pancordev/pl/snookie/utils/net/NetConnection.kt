@@ -1,6 +1,5 @@
 package pancordev.pl.snookie.utils.net
 
-import android.util.Log
 import io.reactivex.Single
 import pancordev.pl.snookie.di.ActivityScoped
 import java.io.IOException
@@ -23,7 +22,6 @@ class NetConnection @Inject constructor(private val socketAddress: InetSocketAdd
             socket.close()
             true
         } catch (e: IOException) {
-            Log.e("EEEEEEEEE", e.toString())
             false
         }
     }
