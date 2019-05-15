@@ -1,4 +1,4 @@
-# Snookie
+# Snookie  :8ball:
 
 It's an android app written in Kotlin. The main purpose of this app is to interpretate snooker game. User records snooker's table from the top with the help of smartphone's camera. App interpretates the game live. It knows: 
 * when user pot a ball 
